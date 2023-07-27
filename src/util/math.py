@@ -14,7 +14,7 @@ def get_normalized_movement(
 ) -> Vector2:
     movement_vector = Vector2(0, 0)
 
-    # # Vertical movement is not supported
+    # # Vertical movement is not yet supported
     # if action_state.move_up and not action_state.move_down:
     #     movement_vector.y -= 1
     # elif action_state.move_down and not action_state.move_up:
