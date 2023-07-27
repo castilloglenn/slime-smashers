@@ -1,0 +1,10 @@
+absl-py==1.4.0
+contextlib2==21.6.0
+flake8==6.0.0
+mccabe==0.7.0
+ml-collections==0.1.1
+pycodestyle==2.10.0
+pyflakes==3.0.1
+pygame==2.5.0
+PyYAML==6.0
+six==1.16.0
