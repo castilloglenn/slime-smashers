@@ -31,6 +31,10 @@ class Motion:
     def is_facing_right(self) -> bool:
         return self.last_facing == Motion.RIGHT
 
+    @property
+    def is_move_locked(self) -> bool:
+        return self.move_lock is not None
+
     def modify_ms(self, n: float):
         self.ms_amp = n
 
@@ -43,23 +47,14 @@ class Motion:
 
         left = action_state.move_left
         right = action_state.move_right
-        if left and right:
+        if left and right or self.is_move_locked:
             return move
 
-        left_locked = self.move_lock == Motion.LEFT
-        right_locked = self.move_lock == Motion.RIGHT
-        if left_locked:
+        if left:
             move = Vector2(-1, 0)
-        elif right_locked:
-            move = Vector2(1, 0)
-        elif left:
-            move = Vector2(-1, 0)
+            self.last_facing = Motion.LEFT
         elif right:
             move = Vector2(1, 0)
-
-        if move.x == 1:
             self.last_facing = Motion.RIGHT
-        elif move.x == -1:
-            self.last_facing = Motion.LEFT
 
         return move * speed * delta
