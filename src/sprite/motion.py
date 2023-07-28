@@ -35,9 +35,12 @@ class Motion:
         return self.gravity * delta
 
     def get_move(self, delta: float, action_state: ActionState) -> Vector2:
-        return get_normalized_movement(
-            action_state=action_state,
-            speed=self.ms,
-            speed_ampify=self.ms_amp,
-            delta=delta,
-        )
+        move = Vector2(0, 0)
+        speed = self.ms * self.ms_amp
+
+        if action_state.move_left and not action_state.move_right:
+            move = Vector2(-1, 0)
+        elif action_state.move_right and not action_state.move_left:
+            move = Vector2(1, 0)
+
+        return move * speed * delta
