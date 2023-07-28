@@ -98,9 +98,10 @@ class Animation(Sprite):
         return True
 
     def draw(self, surface: Surface, topleft: Vector2, hz_flip: bool = False):
-        frame = self.current_frame.copy()
+        frame = self.current_frame
         if hz_flip:
-            frame = transform.flip(frame, True, False)
+            copy = frame.copy()
+            frame = transform.flip(copy, True, False)
 
         surface.blit(source=frame, dest=topleft)
 
