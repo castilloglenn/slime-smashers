@@ -27,6 +27,7 @@ class DashSequence:
     def __post_init__(self):
         self.right_speed = Vector2(self.speed, 0)
         self.left_speed = Vector2(-self.speed, 0)
+
         self.status = DashSequence.DISABLE
         self.direction = None
 
@@ -37,6 +38,9 @@ class DashSequence:
     @property
     def peaked_distance(self) -> bool:
         return self.travelled > self.distance
+
+    def start(self):
+        self.status = DashSequence.ENABLE
 
     def update(self, player_rect: Rect, delta: float, collisions: list[Sprite]):
         if self.direction == DashSequence.LEFT:

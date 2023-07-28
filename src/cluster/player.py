@@ -67,17 +67,19 @@ class Player(Sprite):
         if is_new_only(old=self.action, new=actions, attr="dash"):
             if not self.dash.is_dashing:
                 self.animation.update_perf(new="dash")
-                self.dash.status = DashSequence.ENABLE
+                self.dash.start()
                 if actions.move_right:
                     self.dash.direction = DashSequence.RIGHT
+                    self.motion.move_lock = Motion.RIGHT
                 elif actions.move_left:
                     self.dash.direction = DashSequence.LEFT
+                    self.motion.move_lock = Motion.LEFT
 
         self.action = actions
 
     def apply_movement(self, delta: float, collisions: list[Sprite]):
         if self.action.is_moving:
-            self.animation.hz_flip = bool(self.action.move_left)
+            self.animation.hz_flip = not self.motion.is_facing_right
 
             new_rect = self.rect.copy()
             movement = self.motion.get_move(delta=delta, action_state=self.action)
@@ -106,6 +108,7 @@ class Player(Sprite):
 
         if not self.dash.is_dashing:
             self.animation.reset_perf()
+            self.motion.move_lock = None
 
     def apply_gravity(self, delta: float, collisions: list[Sprite]):
         descend = self.motion.get_descend(delta=delta)
