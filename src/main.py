@@ -11,7 +11,6 @@ from src.util.input import (
     map_keyboard_action,
     remove_controller,
 )
-from src.util.state import ActionState
 
 FLAGS = flags.FLAGS
 
