@@ -177,12 +177,12 @@ def remove_controller(event: Event, joysticks: dict[int, Joystick]):
     print(f"Joystick {event.instance_id} disconnected")
 
 
-def map_controller_action(joysticks: dict[int, Joystick], jid: int) -> ActionState:
+def map_controller_action(joysticks: dict[int, Joystick], joy_id: int) -> ActionState:
     action_state = ActionState()
     if not joysticks:
         return action_state
 
-    joystick = joysticks[jid]
+    joystick = joysticks[joy_id]
     name = joystick.get_name()
     controller = CONTROLLERS[name]
 

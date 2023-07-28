@@ -35,7 +35,7 @@ class TestEnvironment:
     def start(self):
         delta = 0
         joysticks = {}
-        p2_jid = None
+        p2_joy_id = None
 
         player_1 = Player(sheet=self.asset["green-slime"], rel_x=0.5)
         player_2 = Player(sheet=self.asset["green-slime"], rel_x=0.75)
@@ -72,7 +72,7 @@ class TestEnvironment:
 
             if joysticks:
                 controller_actions = map_controller_action(
-                    joysticks=joysticks, jid=p2_jid
+                    joysticks=joysticks, joy_id=p2_joy_id
                 )
                 player_2.receive_actions(actions=controller_actions)
 
