@@ -1,11 +1,6 @@
 import pygame
 
-pygame.init()
 
-
-# This is a simple class that will help us print to the screen.
-# It has nothing to do with the joysticks, just outputting the
-# information.
 class TextPrint:
     def __init__(self):
         self.reset()
@@ -29,14 +24,10 @@ class TextPrint:
 
 
 def main():
-    # Set the width and height of the screen (width, height), and name the window.
+    pygame.init()
     screen = pygame.display.set_mode((500, 700))
-    pygame.display.set_caption("Joystick example")
-
-    # Used to manage how fast the screen updates.
+    pygame.display.set_caption("Controller Diagnostics")
     clock = pygame.time.Clock()
-
-    # Get ready to print.
     text_print = TextPrint()
 
     # This dict can be left as-is, since pygame will generate a
@@ -51,7 +42,7 @@ def main():
         # JOYBUTTONUP, JOYHATMOTION, JOYDEVICEADDED, JOYDEVICEREMOVED
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                done = True  # Flag that we are done so we exit this loop.
+                done = True
 
             if event.type == pygame.JOYBUTTONDOWN:
                 print("Joystick button pressed.")
@@ -75,19 +66,14 @@ def main():
                 del joysticks[event.instance_id]
                 print(f"Joystick {event.instance_id} disconnected")
 
-        # Drawing step
-        # First, clear the screen to white. Don't put other drawing commands
-        # above this, or they will be erased with this command.
         screen.fill((255, 255, 255))
         text_print.reset()
 
-        # Get count of joysticks.
         joystick_count = pygame.joystick.get_count()
 
         text_print.tprint(screen, f"Number of joysticks: {joystick_count}")
         text_print.indent()
 
-        # For each joystick:
         for joystick in joysticks.values():
             jid = joystick.get_instance_id()
 
@@ -137,15 +123,11 @@ def main():
 
             text_print.unindent()
 
-        # Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
-
-        # Limit to 30 frames per second.
         clock.tick(30)
+
+    pygame.quit()
 
 
 if __name__ == "__main__":
     main()
-    # If you forget this line, the program will 'hang'
-    # on exit if running from IDLE.
-    pygame.quit()
