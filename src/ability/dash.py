@@ -6,8 +6,8 @@ from pygame import Vector2
 from pygame.rect import Rect
 from pygame.sprite import Sprite
 
-from src.sprite.motion import Pixels
 from src.util.math import add_vector_to_rect, contain_rect_in_window, get_collided
+from src.util.types import Pixels
 
 FLAGS = flags.FLAGS
 

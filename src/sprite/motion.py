@@ -4,23 +4,16 @@ from typing import *
 from absl import flags
 from pygame import Vector2
 
-from src.util.math import get_normalized_movement
 from src.util.state import ActionState
+from src.util.types import PixelPerSec
 
 FLAGS = flags.FLAGS
-
-
-PixelPerSec = int
-Pixels = int
-Seconds = float
-
-MovementSpeed: PixelPerSec = int
 
 
 @dataclass
 class Motion:
     gravity_: PixelPerSec
-    ms: MovementSpeed
+    ms: PixelPerSec
 
     def __post_init__(self):
         self.gravity = Vector2(0, self.gravity_)

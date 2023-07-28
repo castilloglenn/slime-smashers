@@ -5,13 +5,13 @@ from absl import flags
 from pygame.rect import Rect
 from pygame.sprite import Sprite
 
-from src.sprite.motion import Pixels, Seconds
 from src.util.math import (
     contain_rect_in_window,
     get_collided,
     get_parabolic_peak,
     get_parabolic_position,
 )
+from src.util.types import Pixels, Seconds
 
 FLAGS = flags.FLAGS
 

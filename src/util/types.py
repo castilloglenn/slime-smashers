@@ -3,6 +3,10 @@ from typing import *
 
 from pygame.surface import Surface
 
+PixelPerSec = int
+Pixels = int
+Seconds = float
+
 
 class SpritesheetData(TypedDict):
     x: int
