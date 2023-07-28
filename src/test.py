@@ -11,6 +11,7 @@ from src.util.input import (
     map_keyboard_action,
     remove_controller,
 )
+from src.util.math import debug_delta
 
 FLAGS = flags.FLAGS
 
@@ -52,23 +53,21 @@ class TestEnvironment:
             """EVENT PROCESSING"""
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
             if delta > FLAGS.game.clock.max_delta:
-                print(f"delta exceed: {delta}")
+                print(debug_delta(delta=delta))
                 continue
 
             try:
-                events = pygame.event.get()
-            except SystemError:
-                print("Controller previously connected cannot be found.")
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.running = False
 
-            for event in events:
-                if event.type == pygame.QUIT:
-                    self.running = False
+                    if event.type == pygame.JOYDEVICEADDED:
+                        p2_joy_id = add_new_controller(event=event, joysticks=joysticks)
 
-                if event.type == pygame.JOYDEVICEADDED:
-                    p2_jid = add_new_controller(event=event, joysticks=joysticks)
-
-                if event.type == pygame.JOYDEVICEREMOVED:
-                    remove_controller(event=event, joysticks=joysticks)
+                    if event.type == pygame.JOYDEVICEREMOVED:
+                        remove_controller(event=event, joysticks=joysticks)
+            except SystemError as e:
+                print(f"{e}\nPossible controller previously connected cannot be found.")
 
             if joysticks:
                 controller_actions = map_controller_action(

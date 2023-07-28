@@ -52,8 +52,9 @@ def get_config() -> ConfigDict:
 
     # Clock
     c.clock.fps = 60
+    c.clock.single_frame = 1 / c.clock.fps
     c.clock.tolerance = 1.1
-    c.clock.max_delta = round(1 / c.clock.fps * c.clock.tolerance, 3)
+    c.clock.max_delta = c.clock.single_frame * c.clock.tolerance
 
     # Images
     c.images.upscale = 4.0
