@@ -70,10 +70,10 @@ class Player(Sprite):
                 self.dash.start()
                 if actions.move_right:
                     self.dash.direction = DashSequence.RIGHT
-                    self.motion.move_lock = Motion.RIGHT
+                    self.motion.modify_move_lock(n=Motion.RIGHT)
                 elif actions.move_left:
                     self.dash.direction = DashSequence.LEFT
-                    self.motion.move_lock = Motion.LEFT
+                    self.motion.modify_move_lock(n=Motion.LEFT)
 
         self.action = actions
 

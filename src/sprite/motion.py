@@ -35,6 +35,10 @@ class Motion:
     def is_move_locked(self) -> bool:
         return self.move_lock is not None
 
+    def modify_move_lock(self, n: int):
+        self.move_lock = n
+        self.last_facing = n
+
     def modify_ms(self, n: float):
         self.ms_amp = n
 
