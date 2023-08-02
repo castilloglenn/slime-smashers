@@ -32,3 +32,17 @@ class SpritesheetDict:
     image: Surface
     frames: SpritesheetFrameData
     tags: list[SpritesheetTagData]
+
+
+@dataclass
+class WindowRelPos:
+    x: float = 0.5
+    y: float = 0.5
+
+
+@dataclass
+class HitboxRelPos:
+    x: float = 0.0
+    y: float = 0.0
+    width: float = 1.0
+    height: float = 1.0

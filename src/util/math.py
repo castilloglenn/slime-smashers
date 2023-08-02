@@ -4,6 +4,8 @@ from absl import flags
 from pygame import Rect, Vector2
 from pygame.sprite import Sprite
 
+from src.util.types import HitboxRelPos, WindowRelPos
+
 FLAGS = flags.FLAGS
 
 
@@ -41,11 +43,11 @@ def contain_rect_in_window(rect: Rect):
     rect.clamp_ip(window_rect)
 
 
-def get_hitbox_from_rect(rect: Rect, rx: int, ry: int, rw: int, rh: int) -> Rect:
-    x = rect.x + int(rect.width * rx)
-    y = rect.y + int(rect.height * ry)
-    width = int(rect.width * rw)
-    height = int(rect.height * rh)
+def get_hitbox_from_rect(rect: Rect, hitbox: HitboxRelPos) -> Rect:
+    x = rect.x + int(rect.width * hitbox.x)
+    y = rect.y + int(rect.height * hitbox.y)
+    width = int(rect.width * hitbox.width)
+    height = int(rect.height * hitbox.height)
     return Rect(x, y, width, height)
 
 

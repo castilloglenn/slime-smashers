@@ -8,22 +8,9 @@ from pygame.surface import Surface
 from src.sprite.base import Animation
 from src.util.image import get_surface
 from src.util.math import get_hitbox_from_rect, get_rect_offset
+from src.util.types import HitboxRelPos, WindowRelPos
 
 FLAGS = flags.FLAGS
-
-
-@dataclass
-class WindowRelPos:
-    x: float = 0.5
-    y: float = 0.5
-
-
-@dataclass
-class HitboxRelPos:
-    x: float = 0.0
-    y: float = 0.0
-    width: float = 1.0
-    height: float = 1.0
 
 
 @dataclass
@@ -38,13 +25,7 @@ class Bound:
             int(self.window.x * FLAGS.game.window.width),
             int(self.window.y * FLAGS.game.window.height),
         )
-        self.hitbox = get_hitbox_from_rect(
-            rect=self.image_rect,
-            rx=self.hitbox.x,
-            ry=self.hitbox.y,
-            rw=self.hitbox.width,
-            rh=self.hitbox.height,
-        )
+        self.hitbox = get_hitbox_from_rect(rect=self.image_rect, hitbox=self.hitbox)
         self.hitbox_offset = get_rect_offset(
             inside=self.hitbox, enclosure=self.image_rect
         )
