@@ -27,7 +27,7 @@ class JumpSequence:
     FALLING: int = 2
 
     def __post_init__(self):
-        self.status = self.DISABLE
+        self.status = JumpSequence.DISABLE
         self.peak_time, self.rel_peak_position = get_parabolic_peak(
             duration=self.duration,
             steepness=self.steepness,
