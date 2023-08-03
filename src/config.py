@@ -25,7 +25,7 @@ def get_assets_paths(directory_path: Path, config: ConfigDict) -> ConfigDict:
 def get_paths(dir_name: str) -> ConfigDict:
     path = ConfigDict()
 
-    current_directory = Path(__file__).resolve().parent
+    current_directory = Path(__file__).resolve().parent.parent
     assets_path = current_directory / dir_name
     get_assets_paths(directory_path=assets_path, config=path)
 
