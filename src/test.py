@@ -45,12 +45,14 @@ class TestEnvironment:
         player_2 = Player(sheet=self.asset["green-slime"], rel_x=0.75)
         players = Group(player_1, player_2)
 
-        land_1 = Platform(rel_x=0.0, rel_y=0.74, rel_width=1.0, rel_height=0.26)
-        land_2 = Platform(rel_x=0.25, rel_y=0.5, rel_width=0.25, rel_height=0.04)
-        lands = Group(land_1, land_2)
+        platform_1 = Platform(rel_x=0.0, rel_y=0.74, rel_width=1.0, rel_height=0.26)
+        platform_2 = Platform(rel_x=0.0, rel_y=0.5, rel_width=0.2, rel_height=0.04)
+        platform_3 = Platform(rel_x=0.4, rel_y=0.325, rel_width=0.2, rel_height=0.04)
+        platform_4 = Platform(rel_x=0.8, rel_y=0.5, rel_width=0.2, rel_height=0.04)
+        platforms = Group(platform_1, platform_2, platform_3, platform_4)
 
-        p1_collisions = Group(lands, player_2)
-        p2_collisions = Group(lands, player_1)
+        p1_collisions = Group(platforms, player_2)
+        p2_collisions = Group(platforms, player_1)
 
         total_fps = FLAGS.game.clock.fps
         delta_counter = 0
@@ -113,7 +115,7 @@ class TestEnvironment:
                 player.draw(surface=self.screen)
 
             if FLAGS.game.debug.bounds:
-                land_1.show_bounds(surface=self.screen)
-            land_2.show_bounds(surface=self.screen)
+                for land in platforms:
+                    land.show_bounds(surface=self.screen)
 
             pygame.display.flip()
