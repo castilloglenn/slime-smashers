@@ -8,7 +8,7 @@ from pygame.sprite import Sprite
 from src.util.math import (
     contain_rect_in_window,
     get_collided,
-    get_parabolic_peak,
+    get_parabolic_peak_time,
     get_parabolic_position,
 )
 from src.util.types import Pixels, Seconds
@@ -20,7 +20,6 @@ FLAGS = flags.FLAGS
 class JumpSequence:
     duration: Seconds
     length: Pixels
-    steepness: float = 1.0
 
     DISABLE: int = 0
     RISING: int = 1
@@ -28,9 +27,9 @@ class JumpSequence:
 
     def __post_init__(self):
         self.status = JumpSequence.DISABLE
-        self.peak_time, self.rel_peak_position = get_parabolic_peak(
-            duration=self.duration,
-            steepness=self.steepness,
+        self.peak_time = get_parabolic_peak_time(duration=self.duration)
+        self.rel_peak_position = get_parabolic_position(
+            time=self.peak_time, duration=self.duration
         )
 
     @property
@@ -45,11 +44,7 @@ class JumpSequence:
     def update(self, player_rect: Rect, delta: float, collisions: list[Sprite]):
         self.time += delta
         new_rect = player_rect.copy()
-        rel_position = get_parabolic_position(
-            time=self.time,
-            duration=self.duration,
-            steepness=self.steepness,
-        )
+        rel_position = get_parabolic_position(time=self.time, duration=self.duration)
         rel_length = round(rel_position / self.rel_peak_position, 3)
         new_height = self.start_height - (self.length * rel_length)
         new_rect.y = new_height

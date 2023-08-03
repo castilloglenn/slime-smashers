@@ -62,22 +62,9 @@ def get_collided(rect: Rect, collisions: list[Sprite]) -> Sprite:
     return None
 
 
-def get_parabolic_position(time: float, duration: float, steepness: float) -> float:
-    a = -1 * steepness
-    b = duration * steepness
-    c = 0
-
-    current = a * time**2 + b * time + c
-
-    return current
+def get_parabolic_position(time: float, duration: float) -> float:
+    return -1 * time**2 + duration * time
 
 
-def get_parabolic_peak(duration: float, steepness: float) -> tuple[float, float]:
-    a = -1 * steepness
-    b = duration * steepness
-    c = 0
-
-    peak_time = -b / (2 * a)
-    peak_height = a * peak_time**2 + b * peak_time + c
-
-    return peak_time, peak_height
+def get_parabolic_peak_time(duration: float) -> tuple[float, float]:
+    return -duration / -2
