@@ -7,8 +7,8 @@ from pygame.surface import Surface
 
 from src.ability.dash import DashSequence
 from src.ability.jump import JumpSequence
+from src.ability.motion import Motion
 from src.sprite.bound import Bound, HitboxRelPos, WindowRelPos
-from src.sprite.motion import Motion
 from src.sprite.sheet import Spritesheet
 from src.util.basic import append_list, remove_list
 from src.util.input import is_new_only, is_old_only

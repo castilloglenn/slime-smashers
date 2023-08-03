@@ -4,7 +4,7 @@ from pygame.sprite import Group
 
 from src.asset import get_assets
 from src.cluster.player import Player
-from src.sprite.static import HardSurface
+from src.cluster.static import HardSurface
 from src.util.input import (
     add_new_controller,
     map_controller_action,
