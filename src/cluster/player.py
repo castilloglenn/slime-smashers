@@ -5,6 +5,7 @@ from pygame import Rect
 from pygame.sprite import Sprite
 from pygame.surface import Surface
 
+from src.ability.attack import AttackSequence
 from src.ability.dash import DashSequence
 from src.ability.jump import JumpSequence
 from src.ability.motion import Motion
@@ -42,6 +43,12 @@ class Player(Sprite):
         self.motion = Motion(gravity_=800, ms=450)
         self.jump = JumpSequence(duration=0.7, length=200)
         self.dash = DashSequence(speed=1_000, distance=150)
+
+        self.attack = AttackSequence(
+            strike_ms=100,
+            total_ms=100,
+            hitbox=HitboxRelPos(0.2, 0.7, 0.5, 0.6),
+        )
 
     @property
     def rect(self) -> Rect:
