@@ -47,6 +47,7 @@ class Player(Sprite):
         self.attack = AttackSequence(
             strike_ms=100,
             total_ms=100,
+            hb_source=self.animations.idle_sprite,
             hitbox=HitboxRelPos(0.2, 0.7, 0.5, 0.6),
         )
 
@@ -173,5 +174,4 @@ class Player(Sprite):
             hz_flip=self.animations.hz_flip,
         )
         self.bound.draw(surface=surface)
-
-        self.attack.debug(surface=surface)
+        self.attack.draw(surface=surface)
