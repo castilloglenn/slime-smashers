@@ -14,6 +14,7 @@ FLAGS = flags.FLAGS
 @dataclass
 class AttackSequence:
     strike_ms: Milliseconds
+    total_ms: Milliseconds
     hitbox: HitboxRelPos
 
     DISABLED: int = 0
