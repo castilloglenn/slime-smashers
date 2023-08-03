@@ -98,10 +98,10 @@ class TestEnvironment:
                 controller_actions = map_controller_action(
                     joysticks=joysticks, joy_id=p2_joy_id
                 )
-                player_2.receive_actions(actions=controller_actions)
+                player_1.receive_actions(actions=controller_actions)
 
             keyboard_actions = map_keyboard_action()
-            player_1.receive_actions(actions=keyboard_actions)
+            player_2.receive_actions(actions=keyboard_actions)
 
             player_1.update(delta=delta, collisions=p1_collisions)
             player_2.update(delta=delta, collisions=p2_collisions)
