@@ -12,6 +12,8 @@ class HardSurface(Sprite):
     def __init__(self, rel_x: float, rel_y: float, rel_width: float, rel_height: float):
         super().__init__()
 
+        self.attributes = set()
+
         x = int(rel_x * FLAGS.game.window.width)
         y = int(rel_y * FLAGS.game.window.height)
         width = int(rel_width * FLAGS.game.window.width)
