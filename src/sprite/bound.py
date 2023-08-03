@@ -31,7 +31,7 @@ class Bound:
         self.hitbox_offset = get_rect_offset(
             inside=self.hitbox, enclosure=self.image_rect
         )
-        self.debug_hitbox = get_surface(rect=self.hitbox, color=(255, 0, 255, 64))
+        self.debug_surface = get_surface(rect=self.hitbox, color=(255, 0, 255, 64))
 
     @property
     def image_start(self) -> tuple[int, int]:
@@ -49,4 +49,4 @@ class Bound:
         if not FLAGS.game.debug.bounds:
             return None
 
-        surface.blit(self.debug_hitbox, self.hitbox.topleft)
+        surface.blit(self.debug_surface, self.hitbox.topleft)
