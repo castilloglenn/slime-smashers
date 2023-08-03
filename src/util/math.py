@@ -51,6 +51,19 @@ def get_hitbox_from_rect(rect: Rect, hitbox: HitboxRelPos) -> Rect:
     return Rect(x, y, width, height)
 
 
+def get_reversed_hitbox_from_rect(rect: Rect, hitbox: HitboxRelPos) -> Rect:
+    regular = get_hitbox_from_rect(rect=rect, hitbox=hitbox)
+
+    x_excess = (regular.x + regular.width) - (rect.x + rect.width)
+
+    x = rect.x - x_excess
+    y = regular.y
+    width = regular.width
+    height = regular.height
+
+    return Rect(x, y, width, height)
+
+
 def get_rect_offset(inside: Rect, enclosure: Rect) -> Vector2:
     return Vector2(inside.x - enclosure.x, inside.y - enclosure.y)
 
