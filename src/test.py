@@ -69,7 +69,7 @@ class TestEnvironment:
                 previous_fps = fps_counter
                 fps_counter = 0
 
-            title = "TESTING | "
+            title = "[TestEnv] "
             title += f"{fnow} | "
             title += f"{previous_fps}/{total_fps} FPS"
 
