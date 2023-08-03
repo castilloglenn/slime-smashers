@@ -35,7 +35,7 @@ class Player(Sprite):
         self.action = ActionState()
         self.animations = Spritesheet(spritesheet=sheet)
         self.bound = Bound(
-            hb_source=self.animations.idle_sprite,
+            image_source=self.animations.idle_sprite,
             window=WindowRelPos(rel_x, 0.0),
             hitbox=HitboxRelPos(0.44, 0.45, 0.125, 0.22),
         )
@@ -47,13 +47,12 @@ class Player(Sprite):
         self.attack = AttackSequence(
             strike_ms=100,
             total_ms=100,
-            hb_source=self.animations.idle_sprite,
-            hitbox=HitboxRelPos(0.2, 0.7, 0.5, 0.6),
+            hitbox=HitboxRelPos(1.0, 0.2, 0.3, 0.6),
         )
 
     @property
     def rect(self) -> Rect:
-        return self.bound.hitbox
+        return self.bound.hitbox_rect
 
     @rect.setter
     def rect(self, value: Rect):
@@ -74,8 +73,9 @@ class Player(Sprite):
 
         if not self.animations.is_performing:
             if is_new_only(old=self.action, new=actions, attr="attack"):
-                # NOTE Attack starting point
-                self.animations.update_perf(new="attack")
+                if not self.attack.is_attacking:
+                    self.animations.update_perf(new="attack")
+                    self.attack.start()
             elif actions.defend:
                 # NOTE Defend starting point
                 self.animations.update_perf(new="defend")
@@ -148,6 +148,14 @@ class Player(Sprite):
 
         self.bound.align_rects()
 
+    def apply_attack(self, delta: float, collisions: list[Sprite]):
+        self.attack.update(
+            delta=delta,
+            collisions=collisions,
+            player_rect=self.rect,
+            is_facing_right=self.motion.is_facing_right,
+        )
+
     def update(self, delta: float, collisions: list[Sprite]):
         self.apply_movement(delta=delta, collisions=collisions)
 
@@ -163,6 +171,9 @@ class Player(Sprite):
             self.apply_dash(delta=delta, collisions=collisions)
         else:
             self.apply_gravity(delta=delta, collisions=collisions)
+
+        if self.attack.is_attacking:
+            self.apply_attack(delta=delta, collisions=collisions)
 
         self.animations.update(delta=delta)
 
