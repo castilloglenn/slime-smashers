@@ -35,7 +35,7 @@ class Player(Sprite):
         self.action = ActionState()
         self.animations = Spritesheet(spritesheet=sheet)
         self.bound = Bound(
-            source=self.animations.idle_sprite,
+            hb_source=self.animations.idle_sprite,
             window=WindowRelPos(rel_x, 0.0),
             hitbox=HitboxRelPos(0.44, 0.45, 0.125, 0.22),
         )
@@ -173,3 +173,5 @@ class Player(Sprite):
             hz_flip=self.animations.hz_flip,
         )
         self.bound.draw(surface=surface)
+
+        self.attack.debug(surface=surface)
