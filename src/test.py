@@ -52,6 +52,7 @@ class TestEnvironment:
         p1_collisions = Group(lands, player_2)
         p2_collisions = Group(lands, player_1)
 
+        total_fps = FLAGS.game.clock.fps
         delta_counter = 0
         fps_counter = 0
         previous_fps = 0
@@ -70,7 +71,7 @@ class TestEnvironment:
 
             title = "TESTING | "
             title += f"{fnow} | "
-            title += f"{previous_fps} FPS"
+            title += f"{previous_fps}/{total_fps} FPS"
 
             pygame.display.set_caption(title)
 
