@@ -1,11 +1,23 @@
 from dataclasses import dataclass
+from enum import Enum
 from typing import *
 
 from pygame.surface import Surface
 
+# Unit of Measurements
 PixelPerSec = int
 Pixels = int
 Seconds = float
+Milliseconds = int
+
+
+class Attribute(Enum):
+    Health: int = 0
+    Motion: int = 1
+
+
+class StatusEffect(Enum):
+    Invulnerable: int = 0
 
 
 class SpritesheetData(TypedDict):
