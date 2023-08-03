@@ -42,6 +42,7 @@ def get_config() -> ConfigDict:
 
     # Debug
     c.debug.bounds = True
+    c.debug.attacks = True
 
     # Paths
     c.path = get_paths(dir_name="asset")
