@@ -27,6 +27,10 @@ class AttackSequence:
     def __post_init__(self):
         self.status = AttackSequence.DISABLED
 
+    @property
+    def is_attacking(self) -> bool:
+        return self.status != AttackSequence.DISABLE
+
     def start(self, is_facing_right: bool):
         self.status = AttackSequence.WINDUP
         self.facing = int(is_facing_right)
