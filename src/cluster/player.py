@@ -10,6 +10,7 @@ from src.ability.jump import JumpSequence
 from src.sprite.bound import Bound, HitboxRelPos, WindowRelPos
 from src.sprite.motion import Motion
 from src.sprite.sheet import Spritesheet
+from src.util.basic import append_list, remove_list
 from src.util.input import is_new_only, is_old_only
 from src.util.math import (
     add_vector_to_rect,
@@ -18,7 +19,7 @@ from src.util.math import (
     place_rect_on_top,
 )
 from src.util.state import ActionState
-from src.util.types import SpritesheetDict
+from src.util.types import Attribute, SpritesheetDict, StatusEffect
 
 FLAGS = flags.FLAGS
 
@@ -26,6 +27,9 @@ FLAGS = flags.FLAGS
 class Player(Sprite):
     def __init__(self, sheet: SpritesheetDict, rel_x: float) -> None:
         super().__init__()
+
+        self.attributes = {Attribute.Health, Attribute.Motion}
+        self.status_effects = set()
 
         self.action = ActionState()
         self.animation = Spritesheet(spritesheet=sheet)
@@ -47,6 +51,12 @@ class Player(Sprite):
         assert isinstance(value, Rect)
         self.bound.update_hitbox(new=value)
 
+    def add_status_effects(self, status_effects: list[StatusEffect]):
+        append_list(orig=self.status_effects, to_add=status_effects)
+
+    def del_status_effects(self, status_effects: list[StatusEffect]):
+        remove_list(orig=self.status_effects, to_del=status_effects)
+
     def receive_actions(self, actions: ActionState):
         if self.motion.on_ground:
             if is_new_only(old=self.action, new=actions, attr="jump"):
@@ -55,17 +65,21 @@ class Player(Sprite):
 
         if not self.animation.is_performing:
             if is_new_only(old=self.action, new=actions, attr="attack"):
+                # NOTE Attack starting point
                 self.animation.update_perf(new="attack")
             elif actions.defend:
+                # NOTE Defend starting point
                 self.animation.update_perf(new="defend")
                 self.motion.modify_ms(n=0.25)
 
         if is_old_only(old=self.action, new=actions, attr="defend"):
+            # NOTE Defend ending point
             self.animation.reset_perf()
             self.motion.modify_ms(n=1.0)
 
         if is_new_only(old=self.action, new=actions, attr="dash"):
             if not self.dash.is_dashing:
+                self.add_status_effects(self.dash.status_effects)
                 self.animation.update_perf(new="dash")
                 self.dash.start()
                 if actions.move_right:
@@ -107,6 +121,7 @@ class Player(Sprite):
         self.bound.align_rects()
 
         if not self.dash.is_dashing:
+            self.del_status_effects(self.dash.status_effects)
             self.animation.reset_perf()
             self.motion.move_lock = None
 
