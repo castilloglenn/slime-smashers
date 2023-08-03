@@ -43,10 +43,12 @@ class JumpSequence:
 
     def update(self, player_rect: Rect, delta: float, collisions: list[Sprite]):
         self.time += delta
-        new_rect = player_rect.copy()
+
         rel_position = get_parabolic_position(time=self.time, duration=self.duration)
         rel_length = round(rel_position / self.rel_peak_position, 3)
         new_height = self.start_height - (self.length * rel_length)
+
+        new_rect = player_rect.copy()
         new_rect.y = new_height
         contain_rect_in_window(rect=new_rect)
 
