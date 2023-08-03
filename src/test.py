@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pygame
 from absl import flags
 from pygame.sprite import Group
@@ -49,7 +51,28 @@ class TestEnvironment:
         p1_collisions = Group(lands, player_2)
         p2_collisions = Group(lands, player_1)
 
+        delta_counter = 0
+        fps_counter = 0
+        previous_fps = 0
+
         while self.running:
+            now = datetime.now()
+            dt_format = "%B %d, %Y"
+            fnow = now.strftime(dt_format)
+
+            delta_counter += delta
+            fps_counter += 1
+            if delta_counter >= 1:
+                delta_counter -= 1
+                previous_fps = fps_counter
+                fps_counter = 0
+
+            title = "TESTING | "
+            title += f"{fnow} | "
+            title += f"{previous_fps} FPS"
+
+            pygame.display.set_caption(title)
+
             """EVENT PROCESSING"""
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
             if delta > FLAGS.game.clock.max_delta:
