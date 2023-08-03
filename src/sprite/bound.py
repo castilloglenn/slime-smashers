@@ -15,13 +15,13 @@ FLAGS = flags.FLAGS
 
 @dataclass
 class Bound:
-    hb_source: Animation
+    image_source: Animation
     window: WindowRelPos
     hitbox: HitboxRelPos
 
     def __post_init__(self):
         self.image_rect = Rect(
-            0, 0, self.hb_source.rect.width, self.hb_source.rect.height
+            0, 0, self.image_source.rect.width, self.image_source.rect.height
         )
         self.image_rect.center = (
             int(self.window.x * FLAGS.game.window.width),
