@@ -6,7 +6,7 @@ from pygame.rect import Rect
 from pygame.sprite import Sprite
 
 from src.sprite.bound import HitboxRelPos
-from src.util.types import HasHealth, Milliseconds
+from src.util.types import Attribute, Milliseconds
 
 FLAGS = flags.FLAGS
 
