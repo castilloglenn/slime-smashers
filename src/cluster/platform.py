@@ -8,7 +8,12 @@ from src.util.image import get_surface
 FLAGS = flags.FLAGS
 
 
-class HardSurface(Sprite):
+class Platform(Sprite):
+    """
+    Subjected to change, needs to adapt the Bound class, and also needs
+    to have an image generated from chunks
+    """
+
     def __init__(self, rel_x: float, rel_y: float, rel_width: float, rel_height: float):
         super().__init__()
 

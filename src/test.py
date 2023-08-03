@@ -3,8 +3,8 @@ from absl import flags
 from pygame.sprite import Group
 
 from src.asset import get_assets
+from src.cluster.platform import Platform
 from src.cluster.player import Player
-from src.cluster.static import HardSurface
 from src.util.input import (
     add_new_controller,
     map_controller_action,
@@ -42,8 +42,8 @@ class TestEnvironment:
         player_2 = Player(sheet=self.asset["green-slime"], rel_x=0.75)
         players = Group(player_1, player_2)
 
-        land_1 = HardSurface(rel_x=0.0, rel_y=0.74, rel_width=1.0, rel_height=0.26)
-        land_2 = HardSurface(rel_x=0.25, rel_y=0.5, rel_width=0.25, rel_height=0.04)
+        land_1 = Platform(rel_x=0.0, rel_y=0.74, rel_width=1.0, rel_height=0.26)
+        land_2 = Platform(rel_x=0.25, rel_y=0.5, rel_width=0.25, rel_height=0.04)
         lands = Group(land_1, land_2)
 
         p1_collisions = Group(lands, player_2)
