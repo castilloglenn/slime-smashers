@@ -29,6 +29,7 @@ class TestEnvironment:
         self.running = True
 
         self.asset = get_assets()
+        pygame.display.set_icon(self.asset["game-icon"])
 
         try:
             self.start()
