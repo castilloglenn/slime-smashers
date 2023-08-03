@@ -7,7 +7,7 @@ from pygame.rect import Rect
 from pygame.sprite import Sprite
 
 from src.util.math import add_vector_to_rect, contain_rect_in_window, get_collided
-from src.util.types import Pixels
+from src.util.types import Pixels, StatusEffect
 
 FLAGS = flags.FLAGS
 
@@ -38,6 +38,10 @@ class DashSequence:
     @property
     def peaked_distance(self) -> bool:
         return self.travelled > self.distance
+
+    @property
+    def status_effects(self) -> list[StatusEffect]:
+        return [StatusEffect.Invulnerable]
 
     def start(self):
         self.status = DashSequence.ENABLE
