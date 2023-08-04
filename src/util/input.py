@@ -198,7 +198,7 @@ def map_keyboard_action() -> ActionState:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_w] or keys[pygame.K_UP]:
-        action_state.move_up = 1
+        action_state.jump = 1
     if keys[pygame.K_s] or keys[pygame.K_DOWN]:
         action_state.move_down = 1
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
