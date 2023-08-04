@@ -14,7 +14,7 @@ from src.util.math import (
     get_hitbox_from_rect,
     get_reversed_hitbox_from_rect,
 )
-from src.util.types import Attribute, Milliseconds
+from src.util.types import Attribute, Milliseconds, Seconds
 
 FLAGS = flags.FLAGS
 
@@ -37,6 +37,9 @@ class AttackSequence:
         self.strike_ms = self.strike_ms / 1_000
         self.total_ms = self.total_ms / 1_000
 
+        self.debug_duration: Seconds = 0.1
+        self.debug_counter: Seconds = 0.0
+
         self.status = AttackSequence.DISABLED
         self.strike_status = None
 
@@ -55,9 +58,7 @@ class AttackSequence:
 
     @property
     def color(self) -> Color:
-        if self.strike_status is None:
-            return Color(128, 128, 128, 128)
-        elif self.strike_status == AttackSequence.MISSED:
+        if self.strike_status == AttackSequence.MISSED:
             return Color(255, 0, 0, 128)
         elif self.strike_status == AttackSequence.HIT:
             return Color(255, 255, 0, 128)
@@ -95,5 +96,20 @@ class AttackSequence:
         if not FLAGS.game.debug.attacks:
             return None
 
+        if self.strike_status is None:
+            return None
+
         color_surface = get_surface(rect=self.rect, color=self.color)
         surface.blit(color_surface, self.rect.topleft)
+
+    def debug_update(self, delta: float):
+        if not FLAGS.game.debug.attacks:
+            return None
+
+        if self.strike_status is None:
+            return None
+
+        self.debug_counter += delta
+        if self.debug_counter >= self.debug_duration:
+            self.strike_status = None
+            self.debug_counter = 0.0

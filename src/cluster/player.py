@@ -172,6 +172,7 @@ class Player(Sprite):
         )
         if self.attack.is_attacking:
             self.apply_attack(delta=delta, collisions=collisions)
+        self.attack.debug_update(delta=delta)
 
         self.animations.update(delta=delta)
 
