@@ -149,12 +149,7 @@ class Player(Sprite):
         self.bound.align_rects()
 
     def apply_attack(self, delta: float, collisions: list[Sprite]):
-        self.attack.update(
-            delta=delta,
-            collisions=collisions,
-            player_rect=self.rect,
-            is_facing_right=self.motion.is_facing_right,
-        )
+        self.attack.update(delta=delta, collisions=collisions)
 
     def update(self, delta: float, collisions: list[Sprite]):
         self.apply_movement(delta=delta, collisions=collisions)
@@ -172,6 +167,9 @@ class Player(Sprite):
         else:
             self.apply_gravity(delta=delta, collisions=collisions)
 
+        self.attack.update_requirements(
+            player_rect=self.rect, right_turn=self.motion.right_turn
+        )
         if self.attack.is_attacking:
             self.apply_attack(delta=delta, collisions=collisions)
 
