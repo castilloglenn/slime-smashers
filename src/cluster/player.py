@@ -102,7 +102,7 @@ class Player(Sprite):
 
     def apply_movement(self, delta: float, collisions: list[Sprite]):
         if self.action.is_moving:
-            self.animations.hz_flip = not self.motion.is_facing_right
+            self.animations.hz_flip = not self.motion.right_turn
 
             new_rect = self.rect.copy()
             movement = self.motion.get_move(delta=delta, action_state=self.action)

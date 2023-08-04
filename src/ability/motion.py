@@ -28,7 +28,7 @@ class Motion:
         self.last_facing = Motion.RIGHT
 
     @property
-    def is_facing_right(self) -> bool:
+    def right_turn(self) -> bool:
         return self.last_facing == Motion.RIGHT
 
     @property
