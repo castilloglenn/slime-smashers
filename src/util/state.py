@@ -17,7 +17,8 @@ class ActionState:
     aim_down = 0
 
     dash = 0
-    jump = 0
+    jump_up = 0
+    jump_down = 0
 
     attack = 0
     defend = 0
@@ -25,6 +26,10 @@ class ActionState:
     @property
     def is_moving(self) -> bool:
         return any([self.move_left, self.move_right])
+
+    @property
+    def is_jumping(self) -> bool:
+        return any([self.jump_up, self.jump_down])
 
     def __str__(self):
         actions = ""

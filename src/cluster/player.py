@@ -67,7 +67,7 @@ class Player(Sprite):
 
     def receive_actions(self, actions: ActionState):
         if self.motion.on_ground:
-            if is_new_only(old=self.action, new=actions, attr="jump"):
+            if is_new_only(old=self.action, new=actions, attr="is_jumping"):
                 if not self.jump.is_jumping:
                     self.jump.start(player_rect=self.rect)
 
