@@ -74,15 +74,14 @@ class AttackSequence:
 
     def update(self, delta: float, collisions: list[Sprite]):
         self.time += delta
-        if not self.has_struck:
-            if self.time >= self.strike_ms:
-                self.has_struck = True
-                self.status = AttackSequence.STRIKE
-                if collision := get_collided(rect=self.rect, collisions=collisions):
-                    if Attribute.Health in collision.attributes:
-                        self.strike_status = AttackSequence.HIT
-                        return
-                self.strike_status = AttackSequence.MISSED
+        if not self.has_struck and self.time >= self.strike_ms:
+            self.has_struck = True
+            self.status = AttackSequence.STRIKE
+            if collision := get_collided(rect=self.rect, collisions=collisions):
+                if Attribute.Health in collision.attributes:
+                    self.strike_status = AttackSequence.HIT
+                    return None
+            self.strike_status = AttackSequence.MISSED
 
         elif self.time < self.total_ms:
             self.status = AttackSequence.RECOVERY
