@@ -15,8 +15,8 @@ class Motion:
     gravity_: PixelPerSec
     ms: PixelPerSec
 
-    RIGHT: int = 0
-    LEFT: int = 1
+    LEFT: int = 0
+    RIGHT: int = 1
 
     def __post_init__(self):
         self.gravity = Vector2(0, self.gravity_)
@@ -25,7 +25,7 @@ class Motion:
         self.on_ground = False
         self.move_lock = None
 
-        self.last_facing = None
+        self.last_facing = Motion.RIGHT
 
     @property
     def is_facing_right(self) -> bool:
