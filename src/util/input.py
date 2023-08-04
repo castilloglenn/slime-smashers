@@ -28,10 +28,10 @@ class Xbox:
         if joystick.get_button(Xbox.B):
             action_state.defend = 1
 
-        if joystick.get_button(Xbox.X):
-            action_state.jump_up = 1
         if joystick.get_button(Xbox.LB) and action_state.is_moving:
             action_state.dash = 1
+        elif joystick.get_button(Xbox.LB) and joystick.get_button(Xbox.X):
+            action_state.jump_down = 1
 
     @staticmethod
     def map_axismotion(action_state: ActionState, joystick: Joystick):
@@ -100,16 +100,6 @@ class SwitchPro:
 
     @staticmethod
     def map_buttondown(action_state: ActionState, joystick: Joystick):
-        if joystick.get_button(SwitchPro.B):
-            action_state.attack = 1
-        if joystick.get_button(SwitchPro.A):
-            action_state.defend = 1
-
-        if joystick.get_button(SwitchPro.Y):
-            action_state.jump_up = 1
-        if joystick.get_button(SwitchPro.L) and action_state.is_moving:
-            action_state.dash = 1
-
         if joystick.get_button(SwitchPro.Hat_Up):
             ...
         if joystick.get_button(SwitchPro.Hat_Down):
@@ -118,6 +108,18 @@ class SwitchPro:
             action_state.move_left = 1
         if joystick.get_button(SwitchPro.Hat_Right):
             action_state.move_right = 1
+
+        if joystick.get_button(SwitchPro.B):
+            action_state.attack = 1
+        if joystick.get_button(SwitchPro.A):
+            action_state.defend = 1
+
+        if joystick.get_button(SwitchPro.L) and action_state.is_moving:
+            action_state.dash = 1
+        elif joystick.get_button(SwitchPro.L) and joystick.get_button(SwitchPro.Y):
+            action_state.jump_down = 1
+        elif joystick.get_button(SwitchPro.Y):
+            action_state.jump_up = 1
 
     @staticmethod
     def map_axismotion(action_state: ActionState, joystick: Joystick):
@@ -197,8 +199,6 @@ def map_keyboard_action() -> ActionState:
     action_state = ActionState()
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_w]:
-        action_state.jump_up = 1
     if keys[pygame.K_a]:
         action_state.move_left = 1
     if keys[pygame.K_d]:
@@ -211,6 +211,10 @@ def map_keyboard_action() -> ActionState:
 
     if keys[pygame.K_LSHIFT] and action_state.is_moving:
         action_state.dash = 1
+    elif keys[pygame.K_LSHIFT] and keys[pygame.K_SPACE]:
+        action_state.jump_down = 1
+    elif keys[pygame.K_SPACE]:
+        action_state.jump_up = 1
 
     return action_state
 

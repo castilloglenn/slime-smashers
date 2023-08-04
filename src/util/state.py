@@ -10,6 +10,8 @@ FLAGS = flags.FLAGS
 class ActionState:
     move_left = 0
     move_right = 0
+    jump_up = 0
+    jump_down = 0
 
     aim_left = 0
     aim_right = 0
@@ -17,9 +19,6 @@ class ActionState:
     aim_down = 0
 
     dash = 0
-    jump_up = 0
-    jump_down = 0
-
     attack = 0
     defend = 0
 
