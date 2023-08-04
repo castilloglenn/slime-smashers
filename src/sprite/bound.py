@@ -33,7 +33,9 @@ class Bound:
         self.hitbox_offset = get_rect_offset(
             inside=self.hitbox_rect, enclosure=self.image_rect
         )
-        self.debug_surface = get_surface(rect=self.hitbox_rect, color=(255, 0, 255, 64))
+        self.debug_surface = get_surface(
+            rect=self.hitbox_rect, color=(170, 200, 247, 128)
+        )
 
     @property
     def image_start(self) -> tuple[int, int]:
