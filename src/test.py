@@ -37,6 +37,15 @@ class TestEnvironment:
             pygame.quit()
 
     def start(self):
+        now = datetime.now()
+        dt_format = "%B %d, %Y"
+        fnow = now.strftime(dt_format)
+
+        total_fps = FLAGS.game.clock.fps
+        delta_counter = 0
+        fps_counter = 0
+        previous_fps = 0
+
         delta = 0
         joysticks = {}
         p2_joy_id = None
@@ -54,16 +63,7 @@ class TestEnvironment:
         p1_collisions = Group(platforms, player_2)
         p2_collisions = Group(platforms, player_1)
 
-        total_fps = FLAGS.game.clock.fps
-        delta_counter = 0
-        fps_counter = 0
-        previous_fps = 0
-
         while self.running:
-            now = datetime.now()
-            dt_format = "%B %d, %Y"
-            fnow = now.strftime(dt_format)
-
             delta_counter += delta
             fps_counter += 1
             if delta_counter >= 1:
@@ -71,9 +71,9 @@ class TestEnvironment:
                 previous_fps = fps_counter
                 fps_counter = 0
 
-            title = "[TestEnv] "
+            title = "[Test_Env] "
             title += f"{fnow} | "
-            title += f"{previous_fps}/{total_fps} FPS"
+            title += f"{previous_fps}/{total_fps} FPS "
 
             pygame.display.set_caption(title)
 
