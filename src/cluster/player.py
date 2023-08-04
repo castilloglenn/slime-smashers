@@ -47,7 +47,7 @@ class Player(Sprite):
         self.attack = AttackSequence(
             strike_ms=100,
             total_ms=100,
-            hitbox=HitboxRelPos(1.0, 0.4, 0.3, 0.475),
+            hitbox=HitboxRelPos(1.0, 0.25, 0.3, 0.65),
         )
 
     @property
