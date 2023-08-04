@@ -29,7 +29,7 @@ class Xbox:
             action_state.defend = 1
 
         if joystick.get_button(Xbox.X):
-            action_state.jump = 1
+            action_state.jump_up = 1
         if joystick.get_button(Xbox.LB) and action_state.is_moving:
             action_state.dash = 1
 
@@ -42,10 +42,10 @@ class Xbox:
             action_state.move_right = 1
 
         axis_1 = round(joystick.get_axis(1), 2)
-        if axis_1 < 0:
-            action_state.move_up = 1
-        elif axis_1 > 0:
-            action_state.move_down = 1
+        if axis_1 < 0:  # Left stick up
+            ...
+        elif axis_1 > 0:  # Left stick down
+            ...
 
         axis_2 = round(joystick.get_axis(2), 2)
         if axis_2 < 0:  # Right stick left
@@ -70,10 +70,10 @@ class Xbox:
     @staticmethod
     def map_hatmotion(action_state: ActionState, joystick: Joystick):
         hat = joystick.get_hat(0)
-        if hat[1] > 0:
-            action_state.move_up = 1
-        if hat[1] < 0:
-            action_state.move_down = 1
+        if hat[1] > 0:  # Hat up
+            ...
+        if hat[1] < 0:  # Hat down
+            ...
         if hat[0] < 0:
             action_state.move_left = 1
         if hat[0] > 0:
@@ -106,14 +106,14 @@ class SwitchPro:
             action_state.defend = 1
 
         if joystick.get_button(SwitchPro.Y):
-            action_state.jump = 1
+            action_state.jump_up = 1
         if joystick.get_button(SwitchPro.L) and action_state.is_moving:
             action_state.dash = 1
 
         if joystick.get_button(SwitchPro.Hat_Up):
-            action_state.move_up = 1
+            ...
         if joystick.get_button(SwitchPro.Hat_Down):
-            action_state.move_down = 1
+            ...
         if joystick.get_button(SwitchPro.Hat_Left):
             action_state.move_left = 1
         if joystick.get_button(SwitchPro.Hat_Right):
@@ -130,10 +130,10 @@ class SwitchPro:
             action_state.move_right = 1
 
         axis_1 = round(joystick.get_axis(1), 2)
-        if axis_1 < -tolerance:
-            action_state.move_up = 1
-        elif axis_1 > tolerance:
-            action_state.move_down = 1
+        if axis_1 < -tolerance:  # Left stick up
+            ...
+        elif axis_1 > tolerance:  # Left stick down
+            ...
 
         axis_2 = round(joystick.get_axis(2), 2)
         if axis_2 < -tolerance:  # Right stick left
@@ -198,9 +198,7 @@ def map_keyboard_action() -> ActionState:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_w]:
-        action_state.jump = 1
-    if keys[pygame.K_s]:
-        action_state.move_down = 1
+        action_state.jump_up = 1
     if keys[pygame.K_a]:
         action_state.move_left = 1
     if keys[pygame.K_d]:
