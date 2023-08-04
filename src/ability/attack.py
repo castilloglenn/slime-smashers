@@ -59,7 +59,7 @@ class AttackSequence:
     @property
     def color(self) -> Color:
         if self.strike_status == AttackSequence.MISSED:
-            return Color(255, 255, 255, 128)
+            return Color(170, 200, 247, 128)
         elif self.strike_status == AttackSequence.HIT:
             return Color(255, 0, 0, 128)
 

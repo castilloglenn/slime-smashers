@@ -23,14 +23,14 @@ class Xbox:
 
     @staticmethod
     def map_buttondown(action_state: ActionState, joystick: Joystick):
-        if joystick.get_button(Xbox.A):
+        if joystick.get_button(Xbox.X):
             action_state.attack = 1
         if joystick.get_button(Xbox.B):
             action_state.defend = 1
 
         if joystick.get_button(Xbox.LB) and action_state.is_moving:
             action_state.dash = 1
-        elif joystick.get_button(Xbox.LB) and joystick.get_button(Xbox.X):
+        elif joystick.get_button(Xbox.RB) and joystick.get_button(Xbox.A):
             action_state.jump_down = 1
 
     @staticmethod
@@ -61,11 +61,11 @@ class Xbox:
 
         axis_4 = round(joystick.get_axis(4), 2)
         if axis_4 == 1:  # ZL button
-            action_state.defend = 1
+            ...
 
         axis_5 = round(joystick.get_axis(5), 2)
         if axis_5 == 1:  # ZR button
-            action_state.attack = 1
+            ...
 
     @staticmethod
     def map_hatmotion(action_state: ActionState, joystick: Joystick):
@@ -109,16 +109,16 @@ class SwitchPro:
         if joystick.get_button(SwitchPro.Hat_Right):
             action_state.move_right = 1
 
-        if joystick.get_button(SwitchPro.B):
+        if joystick.get_button(SwitchPro.Y):
             action_state.attack = 1
         if joystick.get_button(SwitchPro.A):
             action_state.defend = 1
 
         if joystick.get_button(SwitchPro.L) and action_state.is_moving:
             action_state.dash = 1
-        elif joystick.get_button(SwitchPro.L) and joystick.get_button(SwitchPro.Y):
+        elif joystick.get_button(SwitchPro.R) and joystick.get_button(SwitchPro.B):
             action_state.jump_down = 1
-        elif joystick.get_button(SwitchPro.Y):
+        elif joystick.get_button(SwitchPro.B):
             action_state.jump_up = 1
 
     @staticmethod
