@@ -36,9 +36,9 @@ class Xbox:
     @staticmethod
     def map_axismotion(action_state: ActionState, joystick: Joystick):
         axis_0 = round(joystick.get_axis(0), 2)
-        if axis_0 < 0:
+        if axis_0 < 0:  # Left stick left
             action_state.move_left = 1
-        elif axis_0 > 0:
+        elif axis_0 > 0:  # Left stick right
             action_state.move_right = 1
 
         axis_1 = round(joystick.get_axis(1), 2)
@@ -74,9 +74,9 @@ class Xbox:
             ...
         if hat[1] < 0:  # Hat down
             ...
-        if hat[0] < 0:
+        if hat[0] < 0:  # Hat left
             action_state.move_left = 1
-        if hat[0] > 0:
+        if hat[0] > 0:  # Hat right
             action_state.move_right = 1
 
 
@@ -126,9 +126,9 @@ class SwitchPro:
         tolerance = 0.25
 
         axis_0 = round(joystick.get_axis(0), 2)
-        if axis_0 < -tolerance:
+        if axis_0 < -tolerance:  # Left stick left
             action_state.move_left = 1
-        elif axis_0 > tolerance:
+        elif axis_0 > tolerance:  # Left stick right
             action_state.move_right = 1
 
         axis_1 = round(joystick.get_axis(1), 2)
