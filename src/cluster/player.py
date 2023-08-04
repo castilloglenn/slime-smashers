@@ -152,8 +152,11 @@ class Player(Sprite):
         self.attack.update(delta=delta, collisions=collisions)
 
     def update(self, delta: float, collisions: list[Sprite]):
+        """Movement is the first priority."""
         self.apply_movement(delta=delta, collisions=collisions)
 
+        """Gravity defying actions, dashing cancels out jumping and gravity.
+        Then jumping has its own velocity."""
         if self.jump.is_jumping:
             if self.dash.is_dashing:
                 if self.jump.status != JumpSequence.FALLING:
@@ -167,6 +170,7 @@ class Player(Sprite):
         else:
             self.apply_gravity(delta=delta, collisions=collisions)
 
+        """Performing Actions such as attacks, defend and skills."""
         self.attack.update_requirements(
             player_rect=self.rect, right_turn=self.motion.right_turn
         )
@@ -174,6 +178,7 @@ class Player(Sprite):
             self.apply_attack(delta=delta, collisions=collisions)
         self.attack.debug_update(delta=delta)
 
+        """Lastly is the animation"""
         self.animations.update(delta=delta)
 
     def draw(self, surface: Surface):
