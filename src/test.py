@@ -14,6 +14,7 @@ from src.util.input import (
     remove_controller,
 )
 from src.util.math import debug_delta
+from src.util.text import blit_text_shadowed, get_bitmap, get_font
 
 FLAGS = flags.FLAGS
 
@@ -64,6 +65,11 @@ class TestEnvironment:
         p1_collisions = Group(platforms, player_2)
         p2_collisions = Group(platforms, player_1)
 
+        """Font testing"""
+        font_name = "JetBrainsMono-Bold"
+        font = get_font(name=font_name, size=16)
+        fsw = int(FLAGS.game.window.width * 0.9125)
+
         """GAME LOOP"""
         while self.running:
             delta_counter += delta
@@ -73,10 +79,7 @@ class TestEnvironment:
                 previous_fps = fps_counter
                 fps_counter = 0
 
-            title = "[Test_Env] "
-            title += f"{fnow} | "
-            title += f"{previous_fps}/{total_fps} FPS "
-
+            title = f"[Test_Env] {fnow}"
             pygame.display.set_caption(title)
 
             """EVENT PROCESSING"""
@@ -120,4 +123,17 @@ class TestEnvironment:
                 for land in platforms:
                     land.show_bounds(surface=self.screen)
 
+            """Basic White Font"""
+            font_surface = get_bitmap(
+                font=font, text=f"{previous_fps}/{total_fps} FPS", bgcolor=(0, 0, 0, 32)
+            )
+            self.screen.blit(font_surface, (fsw, 20))
+            """or shadowed"""
+            blit_text_shadowed(
+                text=f"{previous_fps}/{total_fps} FPS",
+                font=font,
+                coord=(fsw, 50),
+                surface=self.screen,
+                # bgcolor=(0, 0, 0, 32),
+            )
             pygame.display.flip()
