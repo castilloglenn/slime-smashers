@@ -37,6 +37,7 @@ class TestEnvironment:
             pygame.quit()
 
     def start(self):
+        """SETTING"""
         now = datetime.now()
         dt_format = "%B %d, %Y"
         fnow = now.strftime(dt_format)
@@ -63,6 +64,7 @@ class TestEnvironment:
         p1_collisions = Group(platforms, player_2)
         p2_collisions = Group(platforms, player_1)
 
+        """GAME LOOP"""
         while self.running:
             delta_counter += delta
             fps_counter += 1
