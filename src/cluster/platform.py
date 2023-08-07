@@ -29,3 +29,6 @@ class Platform(Sprite):
 
     def show_bounds(self, surface: Surface):
         surface.blit(self.image, self.rect.topleft)
+
+    def __str__(self) -> str:
+        return super().__str__() + str(self.rect)
