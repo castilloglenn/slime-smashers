@@ -9,6 +9,7 @@ PixelPerSec = int
 Pixels = int
 Seconds = float
 Milliseconds = int
+Coordinate = (int, int)
 
 
 class Attribute(Enum):
