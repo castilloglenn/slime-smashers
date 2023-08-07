@@ -11,6 +11,6 @@ def get_font(name: str, size: int) -> Font:
 
 
 def get_bitmap(
-    font: Font, text: str, antialias: bool = True, color: Color = (0, 0, 0)
+    font: Font, text: str, antialias: bool = True, color: Color = (255, 255, 255)
 ) -> Surface:
     return font.render(text, antialias, color)
