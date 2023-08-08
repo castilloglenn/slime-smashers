@@ -79,7 +79,7 @@ class TestEnvironment:
                 previous_fps = fps_counter
                 fps_counter = 0
 
-            title = f"[Test_Env] {fnow}"
+            title = f"Test Environment | {fnow}"
             pygame.display.set_caption(title)
 
             """EVENT PROCESSING"""
