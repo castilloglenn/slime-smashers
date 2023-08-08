@@ -74,7 +74,9 @@ class TestEnvironment:
         """Font testing"""
         font_name = "JetBrainsMono-Bold"
         font = get_font(name=font_name, size=16)
-        fsw = int(FLAGS.game.window.width * 0.9125)
+        fsx = FLAGS.game.window.width * 0.02
+        fsy = FLAGS.game.window.height * 0.61
+        fsnl = FLAGS.game.window.height * 0.03
 
         """GAME LOOP"""
         while self.running:
@@ -129,17 +131,23 @@ class TestEnvironment:
                 for land in platforms:
                     land.show_bounds(surface=self.screen)
 
-            """Basic White Font"""
-            font_surface = get_bitmap(
-                font=font, text=f"{previous_fps}/{total_fps} FPS", bgcolor=(0, 0, 0, 32)
-            )
-            self.screen.blit(font_surface, (fsw, 20))
-            """or shadowed"""
-            blit_text_shadowed(
-                text=f"{previous_fps}/{total_fps} FPS",
-                font=font,
-                coord=(fsw, 50),
-                surface=self.screen,
-                # bgcolor=(0, 0, 0, 32),
-            )
+            fs1 = get_bitmap(font=font, text=f"FPS: {previous_fps}/{total_fps}")
+            self.screen.blit(fs1, (fsx, fsy))
+            fs2 = get_bitmap(font=font, text="Second line")
+            self.screen.blit(fs2, (fsx, fsy + fsnl))
+
+            # """Basic White Font"""
+            # font_surface = get_bitmap(
+            #     font=font, text="Starting point", bgcolor=(0, 0, 0, 32)
+            # )
+            # self.screen.blit(font_surface, (fsw, 20))
+            # """or shadowed"""
+            # blit_text_shadowed(
+            #     text=,
+            #     font=font,
+            #     coord=(fsw, 50),
+            #     surface=self.screen,
+            #     bgcolor=(0, 0, 0, 32),
+            # )
+
             pygame.display.flip()
