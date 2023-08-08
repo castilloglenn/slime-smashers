@@ -114,7 +114,7 @@ class TestEnvironment:
             player_2.update(delta=delta, collisions=p2_collisions)
 
             """DISPLAY PROCESSING"""
-            self.screen.blit(source=self.asset["landscape"], dest=(0, 0))
+            self.screen.blit(source=self.asset["test_env_bg"], dest=(0, 0))
 
             for player in players:
                 player.draw(surface=self.screen)
