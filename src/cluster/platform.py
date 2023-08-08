@@ -25,7 +25,11 @@ class Platform(Sprite):
         height = int(rel_height * FLAGS.game.window.height)
 
         self.rect = Rect(x, y, width, height)
-        self.image = get_surface(rect=self.rect, color=(255, 255, 255, 64))
+        self.color = (255, 255, 255, 2555)
+
+    @property
+    def image(self) -> Surface:
+        return get_surface(rect=self.rect, color=self.color)
 
     def show_bounds(self, surface: Surface):
         surface.blit(self.image, self.rect.topleft)
