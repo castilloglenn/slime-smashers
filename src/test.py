@@ -56,10 +56,16 @@ class TestEnvironment:
         player_2 = Player(sheet=self.asset["green-slime"], rel_x=0.75)
         players = Group(player_1, player_2)
 
-        platform_1 = Platform(rel_x=0.0, rel_y=0.74, rel_width=1.0, rel_height=0.26)
-        platform_2 = Platform(rel_x=0.1, rel_y=0.5, rel_width=0.2, rel_height=0.04)
-        platform_3 = Platform(rel_x=0.4, rel_y=0.325, rel_width=0.2, rel_height=0.04)
-        platform_4 = Platform(rel_x=0.7, rel_y=0.5, rel_width=0.2, rel_height=0.04)
+        platform_1 = Platform(rel_x=0.0, rel_y=0.55, rel_width=1.0, rel_height=0.5)
+        platform_2 = Platform(
+            rel_x=0.335, rel_y=0.36, rel_width=0.3282, rel_height=0.063
+        )
+        platform_3 = Platform(
+            rel_x=0.069, rel_y=0.205, rel_width=0.207, rel_height=0.063
+        )
+        platform_4 = Platform(
+            rel_x=0.725, rel_y=0.205, rel_width=0.207, rel_height=0.063
+        )
         platforms = Group(platform_1, platform_2, platform_3, platform_4)
 
         p1_collisions = Group(platforms, player_2)
