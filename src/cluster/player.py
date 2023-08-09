@@ -199,10 +199,10 @@ class Player(Sprite):
     def text_state(self) -> list[str]:
         state = ["Status"]
 
-        invulnerable = "  Invulnerable: "
         if StatusEffect.Invulnerable in self.status_effects:
-            invulnerable += "True"
-        state.append(invulnerable)
+            state.append("  Invulnerable: True")
+        else:
+            state.append("  Invulnerable:")
 
         state += self.motion.text_state
         state += self.jump.text_state

@@ -80,11 +80,11 @@ class JumpSequence:
         state.append(f"  Duration: {self.duration}s")
         state.append(f"  Length: {self.length}px")
 
-        status = "  Status: "
         if self.status == JumpSequence.RISING:
-            status += "RISING"
+            state.append("  Status: RISING")
         elif self.status == JumpSequence.FALLING:
-            status += "FALLING"
-        state.append(status)
+            state.append("  Status: FALLING")
+        else:
+            state.append("  Status:")
 
         return state

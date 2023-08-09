@@ -74,11 +74,11 @@ class Motion:
         state.append(f"  Gravity: {self.gravity_}px/s")
         state.append(f"  On-Ground: {self.on_ground}")
 
-        move_lock = "  Lock: "
         if self.move_lock == Motion.LEFT:
-            move_lock += "LEFT"
+            state.append("  Lock: LEFT")
         elif self.move_lock == Motion.RIGHT:
-            move_lock += "RIGHT"
-        state.append(move_lock)
+            state.append("  Lock: RIGHT")
+        else:
+            state.append("  Lock:")
 
         return state
