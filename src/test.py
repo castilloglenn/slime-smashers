@@ -42,6 +42,8 @@ class TestEnvironment:
         now = datetime.now()
         dt_format = "%B %d, %Y"
         fnow = now.strftime(dt_format)
+        title = f"Test Environment | {fnow}"
+        pygame.display.set_caption(title)
 
         total_fps = FLAGS.game.clock.fps
         delta_counter = 0
