@@ -20,7 +20,6 @@ class Motion:
 
     def __post_init__(self):
         self.gravity = Vector2(0, self.gravity_)
-        self.gravity_thold = self.gravity_ * FLAGS.game.clock.max_delta
         self.ms_amp = 1.0
 
         self.on_ground = False
@@ -48,8 +47,7 @@ class Motion:
         self.ms_amp = n
 
     def get_descend(self, delta: float) -> Vector2:
-        adjusted_gravity = self.gravity * delta
-        return Vector2(0, min(adjusted_gravity.y, self.gravity_thold))
+        return self.gravity * delta
 
     def get_move(self, delta: float, action_state: ActionState) -> Vector2:
         move = Vector2(0, 0)
