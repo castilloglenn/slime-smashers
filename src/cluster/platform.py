@@ -14,7 +14,14 @@ class Platform(Sprite):
     to have an image generated from chunks
     """
 
-    def __init__(self, rel_x: float, rel_y: float, rel_width: float, rel_height: float):
+    def __init__(
+        self,
+        rel_x: float,
+        rel_y: float,
+        rel_width: float,
+        rel_height: float,
+        disable_debug: bool = False,
+    ):
         super().__init__()
 
         self.attributes = set()
@@ -25,14 +32,16 @@ class Platform(Sprite):
         height = int(rel_height * FLAGS.game.window.height)
 
         self.rect = Rect(x, y, width, height)
-        self.color = (255, 255, 255, 2555)
+        self.color = (255, 255, 255, 64)
+        self.disable_debug = disable_debug
 
     @property
     def image(self) -> Surface:
         return get_surface(rect=self.rect, color=self.color)
 
     def show_bounds(self, surface: Surface):
-        surface.blit(self.image, self.rect.topleft)
+        if not self.disable_debug:
+            surface.blit(self.image, self.rect.topleft)
 
     def __str__(self) -> str:
         return super().__str__() + str(self.rect)
