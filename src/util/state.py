@@ -29,15 +29,3 @@ class ActionState:
     @property
     def is_jumping(self) -> bool:
         return any([self.jump_up, self.jump_down])
-
-    def __str__(self):
-        actions = ""
-        for attr in dir(self):
-            if attr.startswith("__"):
-                continue
-
-            value = getattr(self, attr)
-            if value > 0:
-                actions += f"{attr}:{value:.2f}, "
-
-        return f"{self.__class__.__name__}({actions[:-2]})"
