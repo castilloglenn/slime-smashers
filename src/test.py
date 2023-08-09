@@ -94,9 +94,6 @@ class TestEnvironment:
 
             """EVENT PROCESSING"""
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
-            if delta > FLAGS.game.clock.max_delta:
-                print(debug_delta(delta=delta))
-                continue
 
             try:
                 for event in pygame.event.get():
