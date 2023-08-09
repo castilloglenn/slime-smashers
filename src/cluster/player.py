@@ -202,7 +202,7 @@ class Player(Sprite):
         if StatusEffect.Invulnerable in self.status_effects:
             state.append("  Invulnerable: True")
         else:
-            state.append("  Invulnerable:")
+            state.append("  Invulnerable:     ")
 
         state += self.motion.text_state
         state += self.jump.text_state
