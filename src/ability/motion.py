@@ -35,6 +35,10 @@ class Motion:
     def is_move_locked(self) -> bool:
         return self.move_lock is not None
 
+    @property
+    def speed(self) -> float:
+        return self.ms * self.ms_amp
+
     def modify_move_lock(self, n: int):
         self.move_lock = n
         self.last_facing = n
@@ -47,7 +51,6 @@ class Motion:
 
     def get_move(self, delta: float, action_state: ActionState) -> Vector2:
         move = Vector2(0, 0)
-        speed = self.ms * self.ms_amp
 
         left = action_state.move_left
         right = action_state.move_right
@@ -61,4 +64,21 @@ class Motion:
             move = Vector2(1, 0)
             self.last_facing = Motion.RIGHT
 
-        return move * speed * delta
+        return move * self.speed * delta
+
+    @property
+    def text_state(self) -> list[str]:
+        state = ["Motion"]
+
+        state.append(f"  Speed: {self.speed}px/s")
+        state.append(f"  Gravity: {self.gravity_}px/s")
+        state.append(f"  On-Ground: {self.on_ground}")
+
+        move_lock = "  Lock: "
+        if self.move_lock == Motion.LEFT:
+            move_lock += "LEFT"
+        elif self.move_lock == Motion.RIGHT:
+            move_lock += "RIGHT"
+        state.append(move_lock)
+
+        return state

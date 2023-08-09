@@ -193,3 +193,11 @@ class Player(Sprite):
         self.bound.draw(surface=surface)
         if FLAGS.game.debug.attacks:
             self.attack.draw(surface=surface)
+
+    @property
+    def text_state(self) -> list[str]:
+        state = []
+
+        state += self.motion.text_state
+
+        return state
