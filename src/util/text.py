@@ -86,37 +86,12 @@ class StateToTextLogger:
 
     def draw(self, surface: Surface):
         self.organize()
+
         for i_line, sentence in enumerate(self.data):
             btsurf = get_bitmap(font=self.font, text=sentence)
             surface.blit(btsurf, (self.x, self.y + (self.nl * i_line)))
 
         self.data = []
-
-    """Special functions"""
-
-    def absorb_actions(self, name: str, actions: ActionState):
-        self.add(f"[{name} Actions]")
-
-        movement = "Movement: "
-        if actions.move_left:
-            movement += "LEFT"
-        elif actions.move_right:
-            movement += "RIGHT"
-        self.add(movement)
-
-        action = "Action: "
-        if actions.attack:
-            action += "ATTACK"
-        elif actions.defend:
-            action += "DEFEND"
-        self.add(action)
-
-        special = "Special: "
-        if actions.jump_up:
-            special += "JUMP UP"
-        elif actions.dash:
-            special += "DASH"
-        self.add(special)
 
 
 # """Basic White Font"""
