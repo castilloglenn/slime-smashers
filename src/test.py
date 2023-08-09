@@ -83,10 +83,11 @@ class TestEnvironment:
 
         """GAME LOOP"""
         while self.running:
-            title = f"Test Environment | {fnow}"
-            pygame.display.set_caption(title)
-
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
+            if delta > FLAGS.game.clock.max_delta:
+                print(f"loop halted for {delta} second(s)")
+                continue
+
             delta_counter += delta
             fps_counter += 1
             if delta_counter >= 1:
