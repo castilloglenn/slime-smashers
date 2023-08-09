@@ -52,8 +52,9 @@ class TestEnvironment:
         joysticks = {}
         p2_joy_id = None
 
-        player_1 = Player(sheet=self.asset["green-slime"], rel_x=0.5)
-        player_2 = Player(sheet=self.asset["blue-slime"], rel_x=0.75)
+        player_1 = Player(sheet=self.asset["green-slime"], rel_x=0.4)
+        player_2 = Player(sheet=self.asset["blue-slime"], rel_x=0.6)
+        player_2.animations.hz_flip = True
         players = Group(player_1, player_2)
 
         platform_1 = Platform(rel_x=0.0, rel_y=0.55, rel_width=1.0, rel_height=0.5)
