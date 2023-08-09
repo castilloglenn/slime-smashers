@@ -119,8 +119,6 @@ class TestEnvironment:
                     joysticks=joysticks, joy_id=p2_joy_id
                 )
                 player_1.receive_actions(actions=controller_actions)
-                # text_logger.add("[P1: Joystick]")
-                # text_logger.add(controller_actions.text_state)
 
             keyboard_actions = map_keyboard_action()
             player_2.receive_actions(actions=keyboard_actions)
@@ -128,13 +126,9 @@ class TestEnvironment:
             player_1.update(delta=delta, collisions=p1_collisions)
             player_2.update(delta=delta, collisions=p2_collisions)
 
-            # text_logger.add("[Sprite Green Slime]")
-            # text_logger.add(player_1.text_state)
-            # text_logger.add("")
-
-            text_logger.add("[P2 Keyboard]")
+            text_logger.add("(P2-Blue Slime)")
+            text_logger.add("Keyboard")
             text_logger.add(keyboard_actions.text_state)
-            text_logger.add("[Sprite: Blue Slime]")
             text_logger.add(player_2.text_state)
 
             """DISPLAY PROCESSING"""
