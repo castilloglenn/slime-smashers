@@ -14,7 +14,7 @@ from src.util.input import (
     remove_controller,
 )
 from src.util.math import debug_delta
-from src.util.text import StateToTextLogger, blit_text_shadowed, get_bitmap, get_font
+from src.util.text import StateToTextLogger
 
 FLAGS = flags.FLAGS
 
@@ -89,7 +89,6 @@ class TestEnvironment:
                 fps_counter = 0
 
             text_logger.add(f"FPS: {previous_fps}/{total_fps}")
-            text_logger.add(["2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"])
 
             """EVENT PROCESSING"""
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
