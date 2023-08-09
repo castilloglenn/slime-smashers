@@ -58,7 +58,8 @@ class StateToTextLogger:
         self.nl = FLAGS.game.window.height * rel_nline
 
         self.max_rows = 12
-        self.col_spaces = 2
+        self.row_lengths = [20, 21, 20]
+        self.row_length_idx = 1
         self.data = []
 
     def add(self, data: str | list):
@@ -71,17 +72,17 @@ class StateToTextLogger:
         if len(self.data) <= self.max_rows:
             return None
 
-        max_length = len(max(self.data[: self.max_rows], key=len))
         next_last = min(self.max_rows * 2, len(self.data))
-
         for next_idx in range(self.max_rows, next_last):
             current_idx = next_idx - self.max_rows
-            while len(self.data[current_idx]) < max_length:
+            row_length = sum(self.row_lengths[: self.row_length_idx])
+            while len(self.data[current_idx]) < row_length:
                 self.data[current_idx] += " "
-            self.data[current_idx] += " " * self.col_spaces
+            self.data[current_idx] += " | "
             self.data[current_idx] += self.data[next_idx]
 
         self.data = self.data[: self.max_rows] + self.data[next_last:]
+        self.row_length_idx += 1
         self.organize()
 
     def draw(self, surface: Surface):
@@ -92,6 +93,7 @@ class StateToTextLogger:
             surface.blit(btsurf, (self.x, self.y + (self.nl * i_line)))
 
         self.data = []
+        self.row_length_idx = 1
 
 
 # """Basic White Font"""
