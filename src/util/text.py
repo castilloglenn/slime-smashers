@@ -46,3 +46,43 @@ def blit_text_shadowed(
 
     surface.blit(black, (coord[0] + distance, coord[1] + distance))
     surface.blit(white, coord)
+
+
+class StateToTextLogger:
+    def __init__(self, font_size: int, rel_x: float, rel_y: float, rel_nline: float):
+        font_name = "JetBrainsMono-Bold"
+        self.font = get_font(name=font_name, size=font_size)
+        self.x = FLAGS.game.window.width * rel_x
+        self.y = FLAGS.game.window.height * rel_y
+        self.nl = FLAGS.game.window.height * rel_nline
+
+        self.max_lines = 12
+        self.data = []
+
+    def add(self, data: str):
+        if isinstance(data, str):
+            self.data.append(data)
+        elif isinstance(data, list):
+            self.data += data
+
+    def draw(self, surface: Surface):
+        for i_line, sentence in enumerate(self.data):
+            btsurf = get_bitmap(font=self.font, text=sentence)
+            surface.blit(btsurf, (self.x, self.y + (self.nl * i_line)))
+
+        self.data = []
+
+
+# """Basic White Font"""
+# font_surface = get_bitmap(
+#     font=font, text="Starting point", bgcolor=(0, 0, 0, 32)
+# )
+# self.screen.blit(font_surface, (fsw, 20))
+# """or shadowed"""
+# blit_text_shadowed(
+#     text=,
+#     font=font,
+#     coord=(fsw, 50),
+#     surface=self.screen,
+#     bgcolor=(0, 0, 0, 32),
+# )
