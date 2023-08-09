@@ -14,7 +14,7 @@ from src.util.input import (
     remove_controller,
 )
 from src.util.math import debug_delta
-from src.util.text import blit_text_shadowed, get_bitmap, get_font
+from src.util.text import StateToTextLogger, blit_text_shadowed, get_bitmap, get_font
 
 FLAGS = flags.FLAGS
 
@@ -72,15 +72,15 @@ class TestEnvironment:
         p1_collisions = Group(platforms, player_2)
         p2_collisions = Group(platforms, player_1)
 
-        """Font testing"""
-        font_name = "JetBrainsMono-Bold"
-        font = get_font(name=font_name, size=16)
-        fsx = FLAGS.game.window.width * 0.02
-        fsy = FLAGS.game.window.height * 0.61
-        fsnl = FLAGS.game.window.height * 0.03
+        text_logger = StateToTextLogger(
+            font_size=16, rel_x=0.02, rel_y=0.615, rel_nline=0.03
+        )
 
         """GAME LOOP"""
         while self.running:
+            title = f"Test Environment | {fnow}"
+            pygame.display.set_caption(title)
+
             delta_counter += delta
             fps_counter += 1
             if delta_counter >= 1:
@@ -88,8 +88,8 @@ class TestEnvironment:
                 previous_fps = fps_counter
                 fps_counter = 0
 
-            title = f"Test Environment | {fnow}"
-            pygame.display.set_caption(title)
+            text_logger.add(f"FPS: {previous_fps}/{total_fps}")
+            text_logger.add(["2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"])
 
             """EVENT PROCESSING"""
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
@@ -132,23 +132,6 @@ class TestEnvironment:
                 for land in platforms:
                     land.show_bounds(surface=self.screen)
 
-            fs1 = get_bitmap(font=font, text=f"FPS: {previous_fps}/{total_fps}")
-            self.screen.blit(fs1, (fsx, fsy))
-            fs2 = get_bitmap(font=font, text="12th line")
-            self.screen.blit(fs2, (fsx, fsy + (fsnl * 11)))
-
-            # """Basic White Font"""
-            # font_surface = get_bitmap(
-            #     font=font, text="Starting point", bgcolor=(0, 0, 0, 32)
-            # )
-            # self.screen.blit(font_surface, (fsw, 20))
-            # """or shadowed"""
-            # blit_text_shadowed(
-            #     text=,
-            #     font=font,
-            #     coord=(fsw, 50),
-            #     surface=self.screen,
-            #     bgcolor=(0, 0, 0, 32),
-            # )
+            text_logger.draw(surface=self.screen)
 
             pygame.display.flip()
