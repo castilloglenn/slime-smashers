@@ -56,7 +56,8 @@ class StateToTextLogger:
         self.y = FLAGS.game.window.height * rel_y
         self.nl = FLAGS.game.window.height * rel_nline
 
-        self.max_lines = 12
+        self.max_rows = 12
+        self.col_spaces = 2
         self.data = []
 
     def add(self, data: str | list):
@@ -65,7 +66,25 @@ class StateToTextLogger:
         elif isinstance(data, list):
             self.data += data
 
+    def organize(self):
+        if len(self.data) <= self.max_rows:
+            return None
+
+        max_length = len(max(self.data[: self.max_rows], key=len))
+        next_last = min(self.max_rows * 2, len(self.data))
+
+        for next_idx in range(self.max_rows, next_last):
+            current_idx = next_idx - self.max_rows
+            while len(self.data[current_idx]) < max_length:
+                self.data[current_idx] += " "
+            self.data[current_idx] += " " * self.col_spaces
+            self.data[current_idx] += self.data[next_idx]
+
+        self.data = self.data[: self.max_rows] + self.data[next_last:]
+        self.organize()
+
     def draw(self, surface: Surface):
+        self.organize()
         for i_line, sentence in enumerate(self.data):
             btsurf = get_bitmap(font=self.font, text=sentence)
             surface.blit(btsurf, (self.x, self.y + (self.nl * i_line)))
