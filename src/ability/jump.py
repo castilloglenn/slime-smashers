@@ -77,6 +77,9 @@ class JumpSequence:
     def text_state(self) -> list[str]:
         state = ["Jump"]
 
+        state.append(f"  Duration: {self.duration}s")
+        state.append(f"  Length: {self.length}px")
+
         status = "  Status: "
         if self.status == JumpSequence.RISING:
             status += "RISING"
