@@ -14,7 +14,6 @@ from src.util.input import (
     map_keyboard_action,
     remove_controller,
 )
-from src.util.math import debug_delta
 from src.util.text import StateToTextLogger
 
 FLAGS = flags.FLAGS

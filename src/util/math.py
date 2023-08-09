@@ -9,19 +9,6 @@ from src.util.types import HitboxRelPos, WindowRelPos
 FLAGS = flags.FLAGS
 
 
-def debug_delta(delta: float) -> str:
-    delta_ms = delta * 1000
-    sf = FLAGS.game.clock.single_frame * 1000
-    max_ms = FLAGS.game.clock.max_delta * 1000
-    tol = (FLAGS.game.clock.tolerance - 1) * 100
-
-    report = "delta+: "
-    report += f"{delta_ms:4,.0f}/{max_ms:2,.0f}ms "
-    report += f"[sf: {sf:2,.0f}ms] [tol: {tol:2,.0f}%]"
-
-    return report
-
-
 def add_vector_to_rect(rect: Rect, vector: Vector2):
     rect.x += vector.x
     rect.y += vector.y
