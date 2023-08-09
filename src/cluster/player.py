@@ -205,5 +205,6 @@ class Player(Sprite):
 
         state += self.motion.text_state
         state += self.jump.text_state
+        state += self.dash.text_state
 
         return state

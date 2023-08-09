@@ -66,3 +66,12 @@ class DashSequence:
             if self.peaked_distance:
                 self.travelled = 0.0
                 self.status = self.DISABLE
+
+    @property
+    def text_state(self) -> list[str]:
+        state = ["Dash"]
+
+        state.append(f"  Speed: {self.speed}px")
+        state.append(f"  Distance: {self.distance}px")
+
+        return state
