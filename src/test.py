@@ -92,9 +92,6 @@ class TestEnvironment:
                 previous_fps = fps_counter
                 fps_counter = 0
 
-            text_logger.add(f"FPS: {previous_fps}/{total_fps}")
-            text_logger.add("")
-
             """EVENT PROCESSING"""
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
             if delta > FLAGS.game.clock.max_delta:
@@ -125,6 +122,9 @@ class TestEnvironment:
 
             player_1.update(delta=delta, collisions=p1_collisions)
             player_2.update(delta=delta, collisions=p2_collisions)
+
+            text_logger.add(f"FPS: {previous_fps}/{total_fps}")
+            text_logger.add("")
 
             text_logger.add("(P2-Blue Slime)")
             text_logger.add("Keyboard")
