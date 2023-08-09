@@ -85,6 +85,7 @@ class TestEnvironment:
             title = f"Test Environment | {fnow}"
             pygame.display.set_caption(title)
 
+            delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
             delta_counter += delta
             fps_counter += 1
             if delta_counter >= 1:
@@ -93,8 +94,6 @@ class TestEnvironment:
                 fps_counter = 0
 
             """EVENT PROCESSING"""
-            delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
-
             try:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
