@@ -1,3 +1,4 @@
+import random
 from datetime import datetime
 
 import pygame
@@ -55,9 +56,12 @@ class TestEnvironment:
         player_1 = Player(sheet=self.asset["green-slime"], rel_x=0.4)
         player_2 = Player(sheet=self.asset["blue-slime"], rel_x=0.6)
         player_2.animations.hz_flip = True
+        player_2.motion.last_facing = player_2.motion.LEFT
         players = Group(player_1, player_2)
 
-        platform_1 = Platform(rel_x=0.0, rel_y=0.55, rel_width=1.0, rel_height=0.5)
+        platform_1 = Platform(
+            rel_x=0.0, rel_y=0.55, rel_width=1.0, rel_height=0.5, disable_debug=True
+        )
         platform_2 = Platform(
             rel_x=0.335, rel_y=0.36, rel_width=0.3282, rel_height=0.063
         )
@@ -130,6 +134,8 @@ class TestEnvironment:
             if FLAGS.game.debug.bounds:
                 for land in platforms:
                     land.show_bounds(surface=self.screen)
+                for player in players:
+                    player.draw_bounds(surface=self.screen)
 
             text_logger.draw(surface=self.screen)
 

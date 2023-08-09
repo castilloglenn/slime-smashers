@@ -41,7 +41,7 @@ def get_config() -> ConfigDict:
     c.images = ConfigDict()
 
     # Debug
-    c.debug.bounds = False
+    c.debug.bounds = True
     c.debug.attacks = True
 
     # Paths
