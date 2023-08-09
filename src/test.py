@@ -93,6 +93,7 @@ class TestEnvironment:
                 fps_counter = 0
 
             text_logger.add(f"FPS: {previous_fps}/{total_fps}")
+            text_logger.add("")
 
             """EVENT PROCESSING"""
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
@@ -118,16 +119,23 @@ class TestEnvironment:
                     joysticks=joysticks, joy_id=p2_joy_id
                 )
                 player_1.receive_actions(actions=controller_actions)
-                text_logger.add("[Joystick]")
-                text_logger.add(controller_actions.text_state)
+                # text_logger.add("[P1: Joystick]")
+                # text_logger.add(controller_actions.text_state)
 
             keyboard_actions = map_keyboard_action()
             player_2.receive_actions(actions=keyboard_actions)
-            text_logger.add("[Keyboard]")
-            text_logger.add(keyboard_actions.text_state)
 
             player_1.update(delta=delta, collisions=p1_collisions)
             player_2.update(delta=delta, collisions=p2_collisions)
+
+            # text_logger.add("[Sprite: Green Slime]")
+            # text_logger.add(player_1.text_state)
+            # text_logger.add("")
+
+            text_logger.add("[P2: Keyboard]")
+            text_logger.add(keyboard_actions.text_state)
+            text_logger.add("[Sprite: Blue Slime]")
+            text_logger.add(player_2.text_state)
 
             """DISPLAY PROCESSING"""
             self.screen.blit(source=self.asset["test_env_bg"], dest=(0, 0))
