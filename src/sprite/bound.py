@@ -34,7 +34,7 @@ class Bound:
             inside=self.hitbox_rect, enclosure=self.image_rect
         )
         self.debug_surface = get_surface(
-            rect=self.hitbox_rect, color=(170, 200, 247, 128)
+            rect=self.hitbox_rect, color=(255, 255, 255, 64)
         )
 
     @property
