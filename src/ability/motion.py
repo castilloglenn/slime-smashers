@@ -70,7 +70,7 @@ class Motion:
     def text_state(self) -> list[str]:
         state = ["Motion"]
 
-        state.append(f"  Speed: {self.speed}px/s")
+        state.append(f"  Speed: {round(self.speed)}px/s")
         state.append(f"  Gravity: {self.gravity_}px/s")
         state.append(f"  On-Ground: {self.on_ground}")
 
