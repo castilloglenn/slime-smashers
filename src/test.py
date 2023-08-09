@@ -134,8 +134,8 @@ class TestEnvironment:
 
             fs1 = get_bitmap(font=font, text=f"FPS: {previous_fps}/{total_fps}")
             self.screen.blit(fs1, (fsx, fsy))
-            fs2 = get_bitmap(font=font, text="Second line")
-            self.screen.blit(fs2, (fsx, fsy + fsnl))
+            fs2 = get_bitmap(font=font, text="12th line")
+            self.screen.blit(fs2, (fsx, fsy + (fsnl * 11)))
 
             # """Basic White Font"""
             # font_surface = get_bitmap(
