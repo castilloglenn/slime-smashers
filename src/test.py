@@ -125,7 +125,9 @@ class TestEnvironment:
             text_logger.add(keyboard_actions.text_state)
             text_logger.add(player_2.text_state)
             text_logger.add("")
-            text_logger.add(f"FPS: {previous_fps}/{total_fps}")
+
+            text_logger.add("(System)")
+            text_logger.add(f"  FPS: {previous_fps}/{total_fps}")
 
             """DISPLAY PROCESSING"""
             self.screen.blit(source=self.asset["test_env_bg"], dest=(0, 0))
