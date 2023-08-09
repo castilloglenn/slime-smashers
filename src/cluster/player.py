@@ -188,5 +188,8 @@ class Player(Sprite):
             topleft=self.bound.image_start,
             hz_flip=self.animations.hz_flip,
         )
+
+    def draw_bounds(self, surface: Surface):
         self.bound.draw(surface=surface)
-        self.attack.draw(surface=surface)
+        if FLAGS.game.debug.attacks:
+            self.attack.draw(surface=surface)
