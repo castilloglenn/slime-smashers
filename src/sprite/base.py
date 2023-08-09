@@ -89,6 +89,9 @@ class Animation(Sprite):
                 self.reset_frames()
                 return False
 
+        if delta > FLAGS.game.clock.max_delta:
+            return True
+
         self.frame_duration_count += delta
         if self.frame_duration_count >= self.current_frame_duration:
             self.frame_duration_count -= self.current_frame_duration
