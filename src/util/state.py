@@ -34,21 +34,21 @@ class ActionState:
     def text_state(self) -> list[str]:
         state = []
 
-        movement = "Movement: "
+        movement = "  Movement: "
         if self.move_left:
             movement += "LEFT"
         elif self.move_right:
             movement += "RIGHT"
         state.append(movement)
 
-        action = "Action: "
+        action = "  Action: "
         if self.attack:
             action += "ATTACK"
         elif self.defend:
             action += "DEFEND"
         state.append(action)
 
-        special = "Special: "
+        special = "  Special: "
         if self.jump_up:
             special += "JUMP UP"
         elif self.dash:
