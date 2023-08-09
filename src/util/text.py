@@ -59,7 +59,7 @@ class StateToTextLogger:
         self.max_lines = 12
         self.data = []
 
-    def add(self, data: str):
+    def add(self, data: str | list):
         if isinstance(data, str):
             self.data.append(data)
         elif isinstance(data, list):
