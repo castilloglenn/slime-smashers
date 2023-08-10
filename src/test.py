@@ -14,7 +14,6 @@ from src.util.input import (
     map_keyboard_action,
     remove_controller,
 )
-from src.util.text import StateToTextLogger
 
 FLAGS = flags.FLAGS
 
@@ -54,6 +53,8 @@ class TestEnvironment:
         joysticks = {}
         p2_joy_id = None
 
+        # text_logger = TextLogger(font_size=16, rel_x=0.02, rel_y=0.615, rel_nline=0.03)
+
         player_1 = Player(sheet=self.asset["green-slime"], rel_x=0.4)
         player_2 = Player(sheet=self.asset["blue-slime"], rel_x=0.6)
         player_2.animations.hz_flip = True
@@ -77,10 +78,6 @@ class TestEnvironment:
         p1_collisions = Group(platforms, player_2)
         p2_collisions = Group(platforms, player_1)
 
-        text_logger = StateToTextLogger(
-            font_size=16, rel_x=0.02, rel_y=0.615, rel_nline=0.03
-        )
-
         """GAME LOOP"""
         while self.running:
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
@@ -94,6 +91,7 @@ class TestEnvironment:
                 delta_counter -= 1
                 previous_fps = fps_counter
                 fps_counter = 0
+            f"  FPS: {previous_fps}/{total_fps}"
 
             """EVENT PROCESSING"""
             try:
@@ -115,29 +113,11 @@ class TestEnvironment:
                 )
                 player_1.receive_actions(actions=controller_actions)
 
-                text_logger.add("(P1-Green Slime)")
-                text_logger.add("Joystick")
-                text_logger.add(controller_actions.text_state)
-
             keyboard_actions = map_keyboard_action()
             player_2.receive_actions(actions=keyboard_actions)
 
             player_1.update(delta=delta, collisions=p1_collisions)
             player_2.update(delta=delta, collisions=p2_collisions)
-
-            text_logger.add(player_1.text_state)
-            text_logger.add([" "] * 5)
-
-            text_logger.add("(P2-Blue Slime)")
-            text_logger.add("Keyboard")
-            text_logger.add(keyboard_actions.text_state)
-            text_logger.add(player_2.text_state)
-            text_logger.add([" "] * 5)
-
-            text_logger.add("(System)")
-            text_logger.add(f"  FPS: {previous_fps}/{total_fps}")
-
-            text_logger.organize()
 
             """DISPLAY PROCESSING"""
             self.screen.blit(source=self.asset["test_env_bg"], dest=(0, 0))
@@ -150,7 +130,5 @@ class TestEnvironment:
                     land.show_bounds(surface=self.screen)
                 for player in players:
                     player.draw_bounds(surface=self.screen)
-
-            text_logger.draw(surface=self.screen)
 
             pygame.display.flip()

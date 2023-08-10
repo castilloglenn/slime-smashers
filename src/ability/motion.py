@@ -65,20 +65,3 @@ class Motion:
             self.last_facing = Motion.RIGHT
 
         return move * self.speed * delta
-
-    @property
-    def text_state(self) -> list[str]:
-        state = ["Motion"]
-
-        state.append(f"  Speed: {round(self.speed)}px/s")
-        state.append(f"  Gravity: {self.gravity_}px/s")
-        state.append(f"  On-Ground: {self.on_ground}")
-
-        if self.move_lock == Motion.LEFT:
-            state.append("  Lock: LEFT")
-        elif self.move_lock == Motion.RIGHT:
-            state.append("  Lock: RIGHT")
-        else:
-            state.append("  Lock:")
-
-        return state

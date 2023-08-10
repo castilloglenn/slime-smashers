@@ -194,18 +194,3 @@ class Player(Sprite):
         self.bound.draw(surface=surface)
         if FLAGS.game.debug.attacks:
             self.attack.draw(surface=surface)
-
-    @property
-    def text_state(self) -> list[str]:
-        state = ["Status"]
-
-        if StatusEffect.Invulnerable in self.status_effects:
-            state.append("  Invulnerable: True")
-        else:
-            state.append("  Invulnerable:     ")
-
-        state += self.motion.text_state
-        state += self.jump.text_state
-        state += self.dash.text_state
-
-        return state

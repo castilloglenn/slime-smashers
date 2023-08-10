@@ -29,30 +29,3 @@ class ActionState:
     @property
     def is_jumping(self) -> bool:
         return any([self.jump_up, self.jump_down])
-
-    @property
-    def text_state(self) -> list[str]:
-        state = []
-
-        if self.move_left:
-            state.append("  Movement: LEFT")
-        elif self.move_right:
-            state.append("  Movement: RIGHT")
-        else:
-            state.append("  Movement:")
-
-        if self.attack:
-            state.append("  Action: ATTACK")
-        elif self.defend:
-            state.append("  Action: DEFEND")
-        else:
-            state.append("  Action:")
-
-        if self.jump_up:
-            state.append("  Special: JUMP UP")
-        elif self.dash:
-            state.append("  Special: DASH")
-        else:
-            state.append("  Special:")
-
-        return state

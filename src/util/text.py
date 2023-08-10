@@ -49,52 +49,6 @@ def blit_text_shadowed(
     surface.blit(white, coord)
 
 
-class StateToTextLogger:
-    def __init__(self, font_size: int, rel_x: float, rel_y: float, rel_nline: float):
-        font_name = "JetBrainsMono-Bold"
-        self.font = get_font(name=font_name, size=font_size)
-        self.x = FLAGS.game.window.width * rel_x
-        self.y = FLAGS.game.window.height * rel_y
-        self.nl = FLAGS.game.window.height * rel_nline
-
-        self.max_rows = 12
-        self.data = []
-
-    def add(self, data: str | list):
-        if isinstance(data, str):
-            self.data.append(data)
-        elif isinstance(data, list):
-            self.data += data
-
-    def organize(self):
-        if len(self.data) <= self.max_rows:
-            return None
-
-        max_length = len(max(self.data[: self.max_rows], key=len))
-        next_last = min(self.max_rows * 2, len(self.data))
-
-        for next_idx in range(self.max_rows, next_last):
-            current_idx = next_idx - self.max_rows
-            spaces = max_length - len(self.data[current_idx])
-            self.data[current_idx] = "".join(
-                [
-                    self.data[current_idx],
-                    " " * (spaces + 2),
-                    self.data[next_idx],
-                ]
-            )
-
-        self.data = self.data[: self.max_rows] + self.data[next_last:]
-        self.organize()
-
-    def draw(self, surface: Surface):
-        for i_line, sentence in enumerate(self.data):
-            btsurf = get_bitmap(font=self.font, text=sentence)
-            surface.blit(btsurf, (self.x, self.y + (self.nl * i_line)))
-
-        self.data = []
-
-
 # """Basic White Font"""
 # font_surface = get_bitmap(
 #     font=font, text="Starting point", bgcolor=(0, 0, 0, 32)

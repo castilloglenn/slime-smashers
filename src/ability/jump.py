@@ -72,19 +72,3 @@ class JumpSequence:
         elif self.status == JumpSequence.FALLING:
             self.status = JumpSequence.DISABLE
             self.time = self.duration
-
-    @property
-    def text_state(self) -> list[str]:
-        state = ["Jump"]
-
-        state.append(f"  Duration: {self.duration}s")
-        state.append(f"  Length: {self.length}px")
-
-        if self.status == JumpSequence.RISING:
-            state.append("  Status: RISING")
-        elif self.status == JumpSequence.FALLING:
-            state.append("  Status: FALLING")
-        else:
-            state.append("  Status:")
-
-        return state
