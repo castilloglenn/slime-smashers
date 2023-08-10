@@ -82,8 +82,8 @@ class TestEnvironment:
         while self.running:
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
             if delta > FLAGS.game.clock.max_delta:
-                print(f"loop halted for {delta} second(s)")
-                continue
+                print(f"delta overriden: {delta} second(s)")
+                delta = FLAGS.game.clock.max_delta
 
             delta_counter += delta
             fps_counter += 1
