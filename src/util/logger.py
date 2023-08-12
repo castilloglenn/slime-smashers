@@ -26,7 +26,6 @@ class TextLogger:
         self.preloaded: PreloadTyped = {}
         self.to_display: list[tuple(Coordinate, FontSurface)] = []
 
-        self.value_format = "  {value}"
         self.max_lines = 12
 
     def preload(self, value: str, indented: bool = False):
@@ -34,7 +33,7 @@ class TextLogger:
             return None
 
         if indented:
-            text = self.value_format.format(value=value)
+            text = IndentionFormat.format(value=value)
             font_surface = get_bitmap(font=self.font, text=text)
         else:
             font_surface = get_bitmap(font=self.font, text=value)
