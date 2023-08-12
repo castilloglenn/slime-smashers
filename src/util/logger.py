@@ -7,6 +7,10 @@ from src.util.types import Coordinate, FontSurface, PreloadTyped
 FLAGS = flags.FLAGS
 
 
+CategoryValueFormat = "{category}: {value}"
+IndentionFormat = "  {value}"
+
+
 class TextLogger:
     def __init__(
         self, size: int, rel_x: float, rel_y: float, rel_nline: float, rel_col: float
