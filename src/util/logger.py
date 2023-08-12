@@ -49,8 +49,11 @@ class TextLogger:
         x = self.x + x_offset
         y = self.y + (self.nline * row)
 
-        font_surface = self.preloaded[value]
-        self.to_display.append(((x, y), font_surface))
+        if value is not None:
+            font_surface = self.preloaded[value]
+            self.to_display.append(((x, y), font_surface))
+        else:
+            self.to_display.append(((x, y), None))
 
     def decide(
         self,
@@ -67,8 +70,14 @@ class TextLogger:
 
         self.add(KEYPAIR_FMT.format(key=category, value=value))
 
+    def add_empty(self):
+        self.add(None)
+
     def draw(self, surface: Surface):
         for coord, font_surface in self.to_display:
+            if font_surface is None:
+                continue
+
             surface.blit(source=font_surface, dest=coord)
 
         self.to_display = []

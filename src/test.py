@@ -120,6 +120,9 @@ class TestEnvironment:
                 )
                 player_1.receive_actions(actions=controller_actions)
 
+                controller_actions.text_log(text_logger=text_logger)
+                text_logger.add_empty()
+
             keyboard_actions = map_keyboard_action()
             player_2.receive_actions(actions=keyboard_actions)
 
