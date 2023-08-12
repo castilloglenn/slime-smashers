@@ -126,6 +126,8 @@ class TestEnvironment:
             player_1.update(delta=delta, collisions=p1_collisions)
             player_2.update(delta=delta, collisions=p2_collisions)
 
+            keyboard_actions.text_log(text_logger=text_logger)
+
             """DISPLAY PROCESSING"""
             self.screen.blit(source=self.asset["test_env_bg"], dest=(0, 0))
 
