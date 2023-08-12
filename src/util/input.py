@@ -180,7 +180,7 @@ def remove_controller(event: Event, joysticks: dict[int, Joystick]):
 
 
 def map_controller_action(joysticks: dict[int, Joystick], joy_id: int) -> ActionState:
-    action_state = ActionState()
+    action_state = ActionState(source="Joystick")
     if not joysticks:
         return action_state
 
@@ -196,7 +196,7 @@ def map_controller_action(joysticks: dict[int, Joystick], joy_id: int) -> Action
 
 
 def map_keyboard_action() -> ActionState:
-    action_state = ActionState()
+    action_state = ActionState(source="Keyboard")
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_a]:
