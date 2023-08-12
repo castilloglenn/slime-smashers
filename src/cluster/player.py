@@ -20,6 +20,7 @@ from src.util.math import (
     place_rect_on_top,
 )
 from src.util.state import ActionState
+from src.util.text import TextLogger
 from src.util.types import Attribute, SpritesheetDict, StatusEffect
 
 FLAGS = flags.FLAGS
@@ -49,6 +50,10 @@ class Player(Sprite):
             total_ms=100,
             hitbox=HitboxRelPos(1.0, 0.25, 0.3, 0.65),
         )
+
+    @staticmethod
+    def preload(text_logger: TextLogger):
+        ...
 
     @property
     def rect(self) -> Rect:

@@ -4,6 +4,7 @@ from pygame.sprite import Sprite
 from pygame.surface import Surface
 
 from src.util.image import get_surface
+from src.util.text import TextLogger
 
 FLAGS = flags.FLAGS
 
@@ -34,6 +35,10 @@ class Platform(Sprite):
         self.rect = Rect(x, y, width, height)
         self.color = (255, 255, 255, 64)
         self.disable_debug = disable_debug
+
+    @staticmethod
+    def preload(text_logger: TextLogger):
+        ...
 
     @property
     def image(self) -> Surface:
