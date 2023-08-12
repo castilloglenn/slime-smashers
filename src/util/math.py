@@ -4,7 +4,7 @@ from absl import flags
 from pygame import Rect, Vector2
 from pygame.sprite import Sprite
 
-from src.util.types import HitboxRelPos, WindowRelPos
+from src.util.types import HitboxRelPos
 
 FLAGS = flags.FLAGS
 

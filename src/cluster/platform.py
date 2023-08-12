@@ -4,7 +4,7 @@ from pygame.sprite import Sprite
 from pygame.surface import Surface
 
 from src.util.image import get_surface
-from src.util.text import TextLogger
+from src.util.logger import TextLogger
 
 FLAGS = flags.FLAGS
 

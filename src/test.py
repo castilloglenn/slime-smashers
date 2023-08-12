@@ -1,5 +1,4 @@
 import random
-import time
 from datetime import datetime
 
 import pygame
@@ -15,7 +14,8 @@ from src.util.input import (
     map_keyboard_action,
     remove_controller,
 )
-from src.util.text import TextLogger, get_bitmap, get_font
+from src.util.logger import TextLogger
+from src.util.state import ActionState
 
 FLAGS = flags.FLAGS
 
@@ -58,6 +58,7 @@ class TestEnvironment:
         text_logger = TextLogger(
             size=16, rel_x=0.02, rel_y=0.615, rel_nline=0.03, rel_col=0.192
         )
+        ActionState.preload(text_logger=text_logger)
         Player.preload(text_logger=text_logger)
         Platform.preload(text_logger=text_logger)
 
