@@ -3,7 +3,7 @@ from typing import *
 
 from absl import flags
 
-from src.util.logger import TextLogger
+from src.util.logger import KEYPAIR_FMT, TextLogger
 
 FLAGS = flags.FLAGS
 
@@ -11,7 +11,7 @@ FLAGS = flags.FLAGS
 @dataclass
 class ActionState:
     source: str
-    
+
     move_left = 0
     move_right = 0
     jump_up = 0
@@ -32,17 +32,19 @@ class ActionState:
         for t in titles:
             text_logger.preload(t)
 
-        movement = ["LEFT", "RIGHT"]
-        for m in movement:
-            text_logger.preload(f"Movement: {m}", indented=True)
+        categories = {
+            "Movement": ["LEFT", "RIGHT"],
+            "Action": ["ATTACK", "DEFEND"],
+            "Special": ["DASH", "JUMP UP"],
+        }
 
-        action = ["ATTACK", "DEFEND"]
-        for a in action:
-            text_logger.preload(f"Action: {a}", indented=True)
+        for category in categories:
+            for value in categories[category]:
+                text_value = KEYPAIR_FMT.format(key=category, value=value)
+                text_logger.preload(value=text_value, indented=True)
 
-        special = ["DASH", "JUMP UP"]
-        for s in special:
-            text_logger.preload(f"Special: {s}", indented=True)
+            text_value = KEYPAIR_FMT.format(key=category, value="")
+            text_logger.preload(value=text_value, indented=True)
 
     @property
     def is_moving(self) -> bool:
@@ -51,6 +53,24 @@ class ActionState:
     @property
     def is_jumping(self) -> bool:
         return any([self.jump_up, self.jump_down])
-    
-    def text_log(text_logger: TextLogger):
-        
+
+    def text_log(self, text_logger: TextLogger):
+        text_logger.add(self.source)
+
+        text_logger.decide(
+            category="Movement",
+            values=["LEFT", "RIGHT"],
+            conditions=[self.move_left, self.move_right],
+        )
+
+        text_logger.decide(
+            category="Action",
+            values=["ATTACK", "DEFEND"],
+            conditions=[self.attack, self.defend],
+        )
+
+        text_logger.decide(
+            category="Special",
+            values=["JUMP UP", "DASH"],
+            conditions=[self.jump_up, self.dash],
+        )
