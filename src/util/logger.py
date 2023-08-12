@@ -70,8 +70,9 @@ class TextLogger:
 
         self.add(KEYPAIR_FMT.format(key=category, value=value))
 
-    def add_empty(self):
-        self.add(None)
+    def add_empty(self, num=1):
+        for _ in range(num):
+            self.add(None)
 
     def draw(self, surface: Surface):
         for coord, font_surface in self.to_display:
