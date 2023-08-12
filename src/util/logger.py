@@ -52,6 +52,21 @@ class TextLogger:
         font_surface = self.preloaded[value]
         self.to_display.append(((x, y), font_surface))
 
+    def decide(
+        self,
+        category: str,
+        values: list[str],
+        conditions: list[bool],
+        default: str = "",
+    ):
+        value = default
+        for c, v in zip(conditions, values):
+            if c:
+                value = v
+                break
+
+        self.add(KEYPAIR_FMT.format(key=category, value=value))
+
     def draw(self, surface: Surface):
         for coord, font_surface in self.to_display:
             surface.blit(source=font_surface, dest=coord)
