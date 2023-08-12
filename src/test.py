@@ -1,4 +1,5 @@
 import random
+import time
 from datetime import datetime
 
 import pygame
@@ -14,6 +15,7 @@ from src.util.input import (
     map_keyboard_action,
     remove_controller,
 )
+from src.util.text import TextLogger, get_bitmap, get_font
 
 FLAGS = flags.FLAGS
 
@@ -53,7 +55,15 @@ class TestEnvironment:
         joysticks = {}
         p2_joy_id = None
 
-        # text_logger = TextLogger(font_size=16, rel_x=0.02, rel_y=0.615, rel_nline=0.03)
+        text_logger = TextLogger(
+            size=16, rel_x=0.02, rel_y=0.615, rel_nline=0.03, rel_col=0.192
+        )
+
+        # 60 lines of data with a rel_col of 0.192 is optimal
+        test_logger_testing_size = 30
+        for i in range(test_logger_testing_size):
+            text_logger.preload(f"Title-{i}")
+            text_logger.preload(f"Status: {i}", indented=True)
 
         player_1 = Player(sheet=self.asset["green-slime"], rel_x=0.4)
         player_2 = Player(sheet=self.asset["blue-slime"], rel_x=0.6)
@@ -119,6 +129,10 @@ class TestEnvironment:
             player_1.update(delta=delta, collisions=p1_collisions)
             player_2.update(delta=delta, collisions=p2_collisions)
 
+            for i in range(test_logger_testing_size):
+                text_logger.add(f"Title-{i}")
+                text_logger.add(f"Status: {i}")
+
             """DISPLAY PROCESSING"""
             self.screen.blit(source=self.asset["test_env_bg"], dest=(0, 0))
 
@@ -130,5 +144,7 @@ class TestEnvironment:
                     land.show_bounds(surface=self.screen)
                 for player in players:
                     player.draw_bounds(surface=self.screen)
+
+            text_logger.draw(surface=self.screen)
 
             pygame.display.flip()

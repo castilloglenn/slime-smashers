@@ -59,3 +59,10 @@ class HitboxRelPos:
     y: float = 0.0
     width: float = 1.0
     height: float = 1.0
+
+
+FontSurface = Surface
+
+
+class PreloadTyped(TypedDict):
+    str_value: FontSurface
