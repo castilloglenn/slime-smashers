@@ -7,8 +7,8 @@ from src.util.types import Coordinate, FontSurface, PreloadTyped
 FLAGS = flags.FLAGS
 
 
-CategoryValueFormat = "{category}: {value}"
-IndentionFormat = "  {value}"
+CATEGORY_VALUE_FORMAT = "{category}: {value}"
+INDENTATION_FORMAT = "  {value}"
 
 
 class TextLogger:
@@ -33,7 +33,7 @@ class TextLogger:
             return None
 
         if indented:
-            text = IndentionFormat.format(value=value)
+            text = INDENTATION_FORMAT.format(value=value)
             font_surface = get_bitmap(font=self.font, text=text)
         else:
             font_surface = get_bitmap(font=self.font, text=value)
