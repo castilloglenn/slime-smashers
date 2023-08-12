@@ -3,6 +3,8 @@ from typing import *
 
 from absl import flags
 
+from src.util.logger import TextLogger
+
 FLAGS = flags.FLAGS
 
 
@@ -21,6 +23,10 @@ class ActionState:
     dash = 0
     attack = 0
     defend = 0
+
+    @staticmethod
+    def preload(text_logger: TextLogger):
+        ...
 
     @property
     def is_moving(self) -> bool:

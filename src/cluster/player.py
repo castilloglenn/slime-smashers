@@ -13,6 +13,7 @@ from src.sprite.bound import Bound, HitboxRelPos, WindowRelPos
 from src.sprite.sheet import Spritesheet
 from src.util.basic import append_list, remove_list
 from src.util.input import is_new_only, is_old_only
+from src.util.logger import TextLogger
 from src.util.math import (
     add_vector_to_rect,
     contain_rect_in_window,
@@ -20,7 +21,6 @@ from src.util.math import (
     place_rect_on_top,
 )
 from src.util.state import ActionState
-from src.util.text import TextLogger
 from src.util.types import Attribute, SpritesheetDict, StatusEffect
 
 FLAGS = flags.FLAGS
