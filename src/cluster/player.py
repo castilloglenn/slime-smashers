@@ -33,7 +33,7 @@ class Player(Sprite):
         self.attributes = {Attribute.Health, Attribute.Motion}
         self.status_effects = set()
 
-        self.action = ActionState()
+        self.action = ActionState(source="<None>")
         self.animations = Spritesheet(spritesheet=sheet)
         self.bound = Bound(
             image_source=self.animations.idle_sprite,
