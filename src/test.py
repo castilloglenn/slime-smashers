@@ -136,7 +136,7 @@ class TestEnvironment:
                     if event.type == pygame.JOYDEVICEREMOVED:
                         remove_controller(event=event, joysticks=joysticks)
             except SystemError as e:
-                print(f"{e}\nPossible controller previously connected cannot be found.")
+                print(f"{e}\nPossibly a disconnected controller.")
 
             if joysticks:
                 controller_actions = map_controller_action(
