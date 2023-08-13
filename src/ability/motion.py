@@ -4,6 +4,7 @@ from typing import *
 from absl import flags
 from pygame import Vector2
 
+from src.util.logger import TextLogger
 from src.util.state import ActionState
 from src.util.types import PixelPerSec
 
@@ -27,6 +28,10 @@ class Motion:
 
         self.last_facing = Motion.RIGHT
 
+    @staticmethod
+    def preload(text_logger: TextLogger):
+        text_logger.preload("Motion")
+
     @property
     def right_turn(self) -> bool:
         return self.last_facing == Motion.RIGHT
@@ -38,6 +43,9 @@ class Motion:
     @property
     def speed(self) -> float:
         return self.ms * self.ms_amp
+
+    def text_log(self, text_logger: TextLogger):
+        text_logger.add("Motion")
 
     def modify_move_lock(self, n: int):
         self.move_lock = n

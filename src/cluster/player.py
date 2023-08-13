@@ -65,6 +65,8 @@ class Player(Sprite):
         }
         text_logger.preload_dict(categories=categories)
 
+        Motion.preload(text_logger=text_logger)
+
     @property
     def rect(self) -> Rect:
         return self.bound.hitbox_rect
@@ -81,6 +83,8 @@ class Player(Sprite):
             values=["TRUE"],
             conditions=[StatusEffect.Invulnerable in self.status_effects],
         )
+
+        self.motion.text_log(text_logger=text_logger)
 
     def add_status_effects(self, status_effects: list[StatusEffect]):
         append_list(orig=self.status_effects, to_add=status_effects)
