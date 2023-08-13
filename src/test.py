@@ -40,17 +40,6 @@ class TestEnvironment:
 
     def start(self):
         """SETTING"""
-        now = datetime.now()
-        dt_format = "%B %d, %Y"
-        fnow = now.strftime(dt_format)
-        title = f"Test Environment | {fnow}"
-        pygame.display.set_caption(title)
-
-        total_fps = FLAGS.game.clock.fps
-        delta_counter = 0
-        fps_counter = 0
-        previous_fps = 0
-
         delta = 0
         joysticks = {}
         p2_joy_id = None
@@ -84,6 +73,18 @@ class TestEnvironment:
 
         p1_collisions = Group(platforms, player_2)
         p2_collisions = Group(platforms, player_1)
+
+        """SYSTEM"""
+        now = datetime.now()
+        dt_format = "%B %d, %Y"
+        fnow = now.strftime(dt_format)
+        title = f"Test Environment | {fnow}"
+        pygame.display.set_caption(title)
+
+        total_fps = FLAGS.game.clock.fps
+        delta_counter = 0
+        fps_counter = 0
+        previous_fps = 0
 
         """GAME LOOP"""
         while self.running:
