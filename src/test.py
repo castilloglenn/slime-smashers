@@ -159,6 +159,8 @@ class TestEnvironment:
 
             keyboard_actions.text_log(text_logger=text_logger)
             text_logger.add_empty()
+            player_2.text_log(text_logger=text_logger)
+            text_logger.add_empty()
             self.text_log(text_logger=text_logger)
 
             """DISPLAY PROCESSING"""

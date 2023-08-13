@@ -59,7 +59,11 @@ class Player(Sprite):
 
     @staticmethod
     def preload(text_logger: TextLogger):
-        ...
+        text_logger.preload("Status")
+        categories = {
+            "Invulnerable": ["TRUE"],
+        }
+        text_logger.preload_dict(categories=categories)
 
     @property
     def rect(self) -> Rect:
@@ -71,7 +75,12 @@ class Player(Sprite):
         self.bound.update_hitbox(new=value)
 
     def text_log(self, text_logger: TextLogger):
-        ...
+        text_logger.add("Status")
+        text_logger.decide(
+            category="Invulnerable",
+            values=["TRUE"],
+            conditions=[StatusEffect.Invulnerable in self.status_effects],
+        )
 
     def add_status_effects(self, status_effects: list[StatusEffect]):
         append_list(orig=self.status_effects, to_add=status_effects)
