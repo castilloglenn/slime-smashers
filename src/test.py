@@ -147,9 +147,8 @@ class TestEnvironment:
                     joysticks=joysticks, joy_id=p2_joy_id
                 )
                 player_1.receive_actions(actions=controller_actions)
-
-                controller_actions.text_log(text_logger=text_logger)
-                text_logger.add_empty()
+            else:
+                controller_actions = ActionState(source="Joystick")
 
             keyboard_actions = map_keyboard_action()
             player_2.receive_actions(actions=keyboard_actions)
@@ -157,10 +156,16 @@ class TestEnvironment:
             player_1.update(delta=delta, collisions=p1_collisions)
             player_2.update(delta=delta, collisions=p2_collisions)
 
+            controller_actions.text_log(text_logger=text_logger)
+            text_logger.add_empty()
+            player_1.text_log(text_logger=text_logger)
+            text_logger.add_empty(num=4)
+
             keyboard_actions.text_log(text_logger=text_logger)
             text_logger.add_empty()
             player_2.text_log(text_logger=text_logger)
-            text_logger.add_empty()
+            text_logger.add_empty(num=4)
+
             self.text_log(text_logger=text_logger)
 
             """DISPLAY PROCESSING"""
