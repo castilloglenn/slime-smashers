@@ -27,7 +27,9 @@ FLAGS = flags.FLAGS
 
 
 class Player(Sprite):
-    def __init__(self, sheet: SpritesheetDict, rel_x: float) -> None:
+    def __init__(
+        self, sheet: SpritesheetDict, rel_x: float, face_left: bool = False
+    ) -> None:
         super().__init__()
 
         self.attributes = {Attribute.Health, Attribute.Motion}
@@ -50,6 +52,10 @@ class Player(Sprite):
             total_ms=100,
             hitbox=HitboxRelPos(1.0, 0.25, 0.3, 0.65),
         )
+
+        if face_left:
+            self.animations.hz_flip = True
+            self.motion.last_facing = Motion.LEFT
 
     @staticmethod
     def preload(text_logger: TextLogger):

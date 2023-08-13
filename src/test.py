@@ -65,10 +65,7 @@ class TestEnvironment:
 
         """GAME OBJECTS"""
         player_1 = Player(sheet=self.asset["green-slime"], rel_x=0.4)
-        player_2 = Player(sheet=self.asset["blue-slime"], rel_x=0.6)
-        player_2.animations.hz_flip = True
-        player_2.motion.last_facing = player_2.motion.LEFT
-
+        player_2 = Player(sheet=self.asset["blue-slime"], rel_x=0.6, face_left=True)
         players = Group(player_1, player_2)
 
         platform_1 = Platform(
