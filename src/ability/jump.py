@@ -5,6 +5,7 @@ from absl import flags
 from pygame.rect import Rect
 from pygame.sprite import Sprite
 
+from src.util.logger import TextLogger
 from src.util.math import (
     contain_rect_in_window,
     get_collided,
@@ -32,9 +33,35 @@ class JumpSequence:
             time=self.peak_time, duration=self.duration
         )
 
+    @staticmethod
+    def preload(text_logger: TextLogger):
+        text_logger.preload("Jump")
+        text_logger.preload("Duration: NORMAL", indented=True)
+        text_logger.preload("Length: NORMAL", indented=True)
+
+        categories = {
+            "Status": ["DISABLED", "RISING", "FALLING"],
+        }
+        text_logger.preload_dict(categories=categories)
+
     @property
     def is_jumping(self) -> bool:
         return self.status != JumpSequence.DISABLE
+
+    def text_log(self, text_logger: TextLogger):
+        text_logger.add("Jump")
+        text_logger.add("Duration: NORMAL")
+        text_logger.add("Length: NORMAL")
+
+        text_logger.decide(
+            category="Status",
+            values=["DISABLED", "RISING", "FALLING"],
+            conditions=[
+                self.status == JumpSequence.DISABLE,
+                self.status == JumpSequence.RISING,
+                self.status == JumpSequence.FALLING,
+            ],
+        )
 
     def start(self, player_rect: Rect):
         self.status = JumpSequence.RISING
