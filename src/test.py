@@ -68,15 +68,19 @@ class TestEnvironment:
             self.delta_counter -= 1
             self.previous_fps = self.fps_counter
             self.fps_counter = 0
+        self.rate = self.previous_fps / FLAGS.game.clock.fps
 
     def text_log(self, text_logger: TextLogger):
         text_logger.add("System")
 
-        rate = self.previous_fps / FLAGS.game.clock.fps
         text_logger.decide(
             category="FPS",
             values=["STABLE", "DECREASED", "LOW"],
-            conditions=[rate >= 1.0, 0.8 < rate < 1.0, rate <= 0.8],
+            conditions=[
+                self.rate >= 1.0,
+                0.8 < self.rate < 1.0,
+                self.rate <= 0.8,
+            ],
         )
 
     def start(self):
