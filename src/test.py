@@ -119,10 +119,10 @@ class TestEnvironment:
         """GAME LOOP"""
         while self.running:
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
+            self.debug_fps(delta=delta)
             if delta > FLAGS.game.clock.max_delta:
                 print(f"delta overriden: {delta} second(s)")
                 delta = FLAGS.game.clock.max_delta
-            self.debug_fps(delta=delta)
 
             """EVENT PROCESSING"""
             try:
