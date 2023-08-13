@@ -55,6 +55,7 @@ class TestEnvironment:
         joysticks = {}
         p2_joy_id = None
 
+        """TEXT LOGGER"""
         text_logger = TextLogger(
             size=16, rel_x=0.02, rel_y=0.615, rel_nline=0.03, rel_col=0.192
         )
@@ -62,10 +63,12 @@ class TestEnvironment:
         Player.preload(text_logger=text_logger)
         Platform.preload(text_logger=text_logger)
 
+        """GAME OBJECTS"""
         player_1 = Player(sheet=self.asset["green-slime"], rel_x=0.4)
         player_2 = Player(sheet=self.asset["blue-slime"], rel_x=0.6)
         player_2.animations.hz_flip = True
         player_2.motion.last_facing = player_2.motion.LEFT
+
         players = Group(player_1, player_2)
 
         platform_1 = Platform(
