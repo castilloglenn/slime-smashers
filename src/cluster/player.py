@@ -70,6 +70,9 @@ class Player(Sprite):
         assert isinstance(value, Rect)
         self.bound.update_hitbox(new=value)
 
+    def text_log(self, text_logger: TextLogger):
+        ...
+
     def add_status_effects(self, status_effects: list[StatusEffect]):
         append_list(orig=self.status_effects, to_add=status_effects)
 
