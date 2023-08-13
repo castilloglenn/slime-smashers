@@ -32,6 +32,14 @@ class Motion:
     def preload(text_logger: TextLogger):
         text_logger.preload("Motion")
 
+        categories = {
+            "Speed": ["NORMAL", "SLOWED"],
+            "Gravity": ["NORMAL"],
+            "On-Ground": ["TRUE", "FALSE"],
+            "Lock": ["LEFT", "RIGHT"],
+        }
+        text_logger.preload_dict(categories=categories)
+
     @property
     def right_turn(self) -> bool:
         return self.last_facing == Motion.RIGHT
@@ -46,6 +54,29 @@ class Motion:
 
     def text_log(self, text_logger: TextLogger):
         text_logger.add("Motion")
+
+        text_logger.decide(
+            category="Speed",
+            values=["NORMAL", "SLOWED"],
+            conditions=[self.ms_amp == 1.0, self.ms_amp < 1.0],
+        )
+
+        text_logger.add("Gravity: NORMAL")
+
+        text_logger.decide(
+            category="On-Ground",
+            values=["TRUE", "FALSE"],
+            conditions=[self.on_ground, not self.on_ground],
+        )
+
+        text_logger.decide(
+            category="Lock",
+            values=["LEFT", "RIGHT"],
+            conditions=[
+                self.move_lock == Motion.LEFT,
+                self.move_lock == Motion.RIGHT,
+            ],
+        )
 
     def modify_move_lock(self, n: int):
         self.move_lock = n
