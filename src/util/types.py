@@ -66,3 +66,10 @@ FontSurface = Surface
 
 class PreloadTyped(TypedDict):
     str_value: FontSurface
+
+
+PossibleValues = list[str]
+
+
+class PreloadCategoriesTyped(TypedDict):
+    category: PossibleValues

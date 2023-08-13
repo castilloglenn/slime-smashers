@@ -37,14 +37,7 @@ class ActionState:
             "Action": ["ATTACK", "DEFEND"],
             "Special": ["DASH", "JUMP UP"],
         }
-
-        for category in categories:
-            for value in categories[category]:
-                text_value = KEYPAIR_FMT.format(key=category, value=value)
-                text_logger.preload(value=text_value, indented=True)
-
-            text_value = KEYPAIR_FMT.format(key=category, value="")
-            text_logger.preload(value=text_value, indented=True)
+        text_logger.preload_dict(categories=categories)
 
     @property
     def is_moving(self) -> bool:

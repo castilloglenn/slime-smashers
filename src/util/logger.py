@@ -2,7 +2,7 @@ from absl import flags
 from pygame import Surface
 
 from src.util.text import get_bitmap, get_font
-from src.util.types import Coordinate, FontSurface, PreloadTyped
+from src.util.types import Coordinate, FontSurface, PreloadCategoriesTyped, PreloadTyped
 
 FLAGS = flags.FLAGS
 
@@ -39,6 +39,15 @@ class TextLogger:
             font_surface = get_bitmap(font=self.font, text=value)
 
         self.preloaded[value] = font_surface
+
+    def preload_dict(self, categories: PreloadCategoriesTyped):
+        for category in categories:
+            for value in categories[category]:
+                text_value = KEYPAIR_FMT.format(key=category, value=value)
+                self.preload(value=text_value, indented=True)
+
+            text_value = KEYPAIR_FMT.format(key=category, value="")
+            self.preload(value=text_value, indented=True)
 
     def add(self, value: str):
         index = len(self.to_display)
