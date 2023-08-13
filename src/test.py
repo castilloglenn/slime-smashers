@@ -33,24 +33,66 @@ class TestEnvironment:
         self.asset = get_assets()
         pygame.display.set_icon(self.asset["game-icon"])
 
+        now = datetime.now()
+        dt_format = "%B %d, %Y"
+        fnow = now.strftime(dt_format)
+        title = f"Test Environment | {fnow}"
+        pygame.display.set_caption(title)
+
+        self.declare_variables()
+
         try:
             self.start()
         finally:
             pygame.quit()
 
-    def start(self):
-        """SETTING"""
-        delta = 0
-        joysticks = {}
-        p2_joy_id = None
+    @staticmethod
+    def preload(text_logger: TextLogger):
+        text_logger.preload("System")
 
+        categories = {
+            "FPS": ["STABLE", "DECREASED", "LOW"],
+        }
+        text_logger.preload_dict(categories=categories)
+
+    def declare_variables(self):
+        """FPS Counter"""
+        self.delta_counter = 0
+        self.fps_counter = 0
+        self.previous_fps = 0
+
+    def debug_fps(self, delta: float):
+        self.delta_counter += delta
+        self.fps_counter += 1
+        if self.delta_counter >= 1:
+            self.delta_counter -= 1
+            self.previous_fps = self.fps_counter
+            self.fps_counter = 0
+
+    def text_log(self, text_logger: TextLogger):
+        text_logger.add("System")
+
+        rate = self.previous_fps / FLAGS.game.clock.fps
+        text_logger.decide(
+            category="FPS",
+            values=["STABLE", "DECREASED", "LOW"],
+            conditions=[rate >= 1.0, 0.8 < rate < 1.0, rate <= 0.8],
+        )
+
+    def start(self):
         """TEXT LOGGER"""
         text_logger = TextLogger(
             size=16, rel_x=0.02, rel_y=0.615, rel_nline=0.03, rel_col=0.192
         )
+        TestEnvironment.preload(text_logger=text_logger)
         ActionState.preload(text_logger=text_logger)
         Player.preload(text_logger=text_logger)
         Platform.preload(text_logger=text_logger)
+
+        """SETTING"""
+        delta = 0
+        joysticks = {}
+        p2_joy_id = None
 
         """GAME OBJECTS"""
         player_1 = Player(sheet=self.asset["green-slime"], rel_x=0.4)
@@ -74,32 +116,13 @@ class TestEnvironment:
         p1_collisions = Group(platforms, player_2)
         p2_collisions = Group(platforms, player_1)
 
-        """SYSTEM"""
-        now = datetime.now()
-        dt_format = "%B %d, %Y"
-        fnow = now.strftime(dt_format)
-        title = f"Test Environment | {fnow}"
-        pygame.display.set_caption(title)
-
-        total_fps = FLAGS.game.clock.fps
-        delta_counter = 0
-        fps_counter = 0
-        previous_fps = 0
-
         """GAME LOOP"""
         while self.running:
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
             if delta > FLAGS.game.clock.max_delta:
                 print(f"delta overriden: {delta} second(s)")
                 delta = FLAGS.game.clock.max_delta
-
-            delta_counter += delta
-            fps_counter += 1
-            if delta_counter >= 1:
-                delta_counter -= 1
-                previous_fps = fps_counter
-                fps_counter = 0
-            f"  FPS: {previous_fps}/{total_fps}"
+            self.debug_fps(delta=delta)
 
             """EVENT PROCESSING"""
             try:
@@ -131,6 +154,8 @@ class TestEnvironment:
             player_2.update(delta=delta, collisions=p2_collisions)
 
             keyboard_actions.text_log(text_logger=text_logger)
+            text_logger.add_empty()
+            self.text_log(text_logger=text_logger)
 
             """DISPLAY PROCESSING"""
             self.screen.blit(source=self.asset["test_env_bg"], dest=(0, 0))
