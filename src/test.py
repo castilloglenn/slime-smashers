@@ -148,7 +148,7 @@ class TestEnvironment:
                 )
                 player_1.receive_actions(actions=controller_actions)
             else:
-                controller_actions = ActionState(source="Joystick")
+                controller_actions = ActionState(source="Joystick Disconnected")
 
             keyboard_actions = map_keyboard_action()
             player_2.receive_actions(actions=keyboard_actions)

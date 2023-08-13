@@ -28,7 +28,7 @@ class ActionState:
 
     @staticmethod
     def preload(text_logger: TextLogger):
-        titles = ["Keyboard", "Joystick"]
+        titles = ["Keyboard", "Joystick", "Joystick Disconnected"]
         for t in titles:
             text_logger.preload(t)
 
