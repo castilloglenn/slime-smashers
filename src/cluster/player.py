@@ -67,6 +67,7 @@ class Player(Sprite):
 
         Motion.preload(text_logger=text_logger)
         JumpSequence.preload(text_logger=text_logger)
+        DashSequence.preload(text_logger=text_logger)
 
     @property
     def rect(self) -> Rect:
@@ -87,6 +88,7 @@ class Player(Sprite):
 
         self.motion.text_log(text_logger=text_logger)
         self.jump.text_log(text_logger=text_logger)
+        self.dash.text_log(text_logger=text_logger)
 
     def add_status_effects(self, status_effects: list[StatusEffect]):
         append_list(orig=self.status_effects, to_add=status_effects)
