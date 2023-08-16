@@ -201,7 +201,7 @@ def map_keyboard_action() -> ActionState:
 
     if keys[pygame.K_a]:
         action_state.move_left = 1
-    elif keys[pygame.K_d]:
+    if keys[pygame.K_d]:
         action_state.move_right = 1
 
     if keys[pygame.K_j]:
