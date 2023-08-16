@@ -98,13 +98,9 @@ class Player(Sprite):
         remove_list(orig=self.status_effects, to_del=status_effects)
 
     def receive_actions(self, actions: ActionState):
-        if self.motion.on_ground:
-            if is_new_only(old=self.action, new=actions, attr="jump_up"):
-                if not self.jump.is_jumping:
-                    self.jump.start(player_rect=self.rect)
-                    self.motion.on_ground = False
-            elif is_new_only(old=self.action, new=actions, attr="jump_down"):
-                ...
+        self.jump.receive_actions(
+            old=self.action, new=actions, motion=self.motion, rect=self.rect
+        )
 
         if not self.animations.is_performing:
             if is_new_only(old=self.action, new=actions, attr="attack"):

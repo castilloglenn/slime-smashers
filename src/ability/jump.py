@@ -5,6 +5,8 @@ from absl import flags
 from pygame.rect import Rect
 from pygame.sprite import Sprite
 
+from src.ability.motion import Motion
+from src.util.input import is_new_only
 from src.util.logger import TextLogger
 from src.util.math import (
     contain_rect_in_window,
@@ -12,6 +14,7 @@ from src.util.math import (
     get_parabolic_peak_time,
     get_parabolic_position,
 )
+from src.util.state import ActionState
 from src.util.types import Pixels, Seconds
 
 FLAGS = flags.FLAGS
@@ -62,6 +65,18 @@ class JumpSequence:
                 self.status == JumpSequence.FALLING,
             ],
         )
+
+    def receive_actions(
+        self, old: ActionState, new: ActionState, motion: Motion, rect: Rect
+    ):
+        if not motion.on_ground or self.is_jumping:
+            return None
+
+        if is_new_only(old=old, new=new, attr="jump_up"):
+            self.start(player_rect=rect)
+            motion.on_ground = False
+        elif is_new_only(old=old, new=new, attr="jump_down"):
+            ...
 
     def start(self, player_rect: Rect):
         self.status = JumpSequence.RISING
