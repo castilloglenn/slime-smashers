@@ -97,18 +97,22 @@ class ActionStateRandomizer:
 
         left_bias = right_bias = 0
         if computer.rect.x > player.rect.x:
-            left_bias = 1
+            left_bias = 3
         elif computer.rect.x < player.rect.x:
-            right_bias = 1
+            right_bias = 3
 
         self.movement_direction = random.choices(
-            population=[0, 1, 2], weights=[1 + left_bias, 1 + right_bias, 1]
+            population=[0, 1, 2], weights=[1 + left_bias, 1 + right_bias, 2]
         )[0]
+
+        stand_bias = 0
+        if self.movement_direction == ActionStateRandomizer.STAND:
+            stand_bias = random.uniform(0.5, 1.5)
 
         lower = random.uniform(0.2, 0.5)
         upper = random.uniform(0.6, 2.4)
         duration = random.choices(population=[lower, upper], weights=[10, 1])[0]
-        self.movement_duration = duration
+        self.movement_duration = duration + stand_bias
         self.movement_counter = 0
 
     def move(self, actions: ActionState):
@@ -126,16 +130,20 @@ class ActionStateRandomizer:
         if self.movement_counter / self.fps >= self.movement_duration:
             self.movement_direction = None
 
-    def action(self, actions: ActionState):
+    def action(self, actions: ActionState, player: Player_, computer: Player_):
         if self.action_counter / self.fps < self.action_cooldown:
             self.action_counter += 1
+            return None
+
+        diff = abs(player.rect.center[0] - computer.rect.center[0])
+        if diff > 100:
             return None
 
         action = random.choices(population=[0, 1], weights=[1, 1])[0]
         if action == 0:
             actions.attack = 1
 
-        self.action_cooldown = random.uniform(0.3, 0.5)
+        self.action_cooldown = random.uniform(0.1, 0.3)
         self.action_counter = 0
 
     def special(self, actions: ActionState, player: Player_, computer: Player_):
@@ -145,19 +153,20 @@ class ActionStateRandomizer:
 
         jump_bias = 0
         if computer.rect.y > player.rect.y:
-            jump_bias = 3
+            jump_bias = 1
 
-        special = random.choices(population=[0, 1, 2], weights=[3 + jump_bias, 2, 1])[0]
-        if special == 1:
+        special = random.choices(population=[0, 1, 2], weights=[1 + jump_bias, 1, 1])[0]
+        if special == 0:
             actions.jump_up = 1
-        elif special == 2:
+        elif special == 1:
             actions.dash = 1
 
-            if computer.rect.x > player.rect.x:
-                actions.move_left = 1
-            else:
+            direction = random.choice([True, False])
+            if direction:
                 actions.move_right = 1
-        elif special == 3:
+            else:
+                actions.move_left = 1
+        elif special == 2:
             actions.jump_down = 1
 
         self.special_cooldown = random.uniform(0.3, 0.5)
@@ -168,7 +177,7 @@ class ActionStateRandomizer:
 
         self.set_random_direction(player=player, computer=computer)
         self.move(actions=new_actions)
-        self.action(actions=new_actions)
+        self.action(actions=new_actions, player=player, computer=computer)
         self.special(actions=new_actions, player=player, computer=computer)
 
         return new_actions
