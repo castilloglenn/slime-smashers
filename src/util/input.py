@@ -25,7 +25,7 @@ class Xbox:
     def map_buttondown(action_state: ActionState, joystick: Joystick):
         if joystick.get_button(Xbox.X):
             action_state.attack = 1
-        if joystick.get_button(Xbox.B):
+        elif joystick.get_button(Xbox.B):
             action_state.defend = 1
 
         if joystick.get_button(Xbox.LB) and action_state.is_moving:
@@ -76,7 +76,7 @@ class Xbox:
             ...
         if hat[0] < 0:  # Hat left
             action_state.move_left = 1
-        if hat[0] > 0:  # Hat right
+        elif hat[0] > 0:  # Hat right
             action_state.move_right = 1
 
 
@@ -106,12 +106,12 @@ class SwitchPro:
             ...
         if joystick.get_button(SwitchPro.Hat_Left):
             action_state.move_left = 1
-        if joystick.get_button(SwitchPro.Hat_Right):
+        elif joystick.get_button(SwitchPro.Hat_Right):
             action_state.move_right = 1
 
         if joystick.get_button(SwitchPro.Y):
             action_state.attack = 1
-        if joystick.get_button(SwitchPro.A):
+        elif joystick.get_button(SwitchPro.A):
             action_state.defend = 1
 
         if joystick.get_button(SwitchPro.L) and action_state.is_moving:
@@ -201,17 +201,17 @@ def map_keyboard_action() -> ActionState:
 
     if keys[pygame.K_a]:
         action_state.move_left = 1
-    if keys[pygame.K_d]:
+    elif keys[pygame.K_d]:
         action_state.move_right = 1
 
     if keys[pygame.K_j]:
         action_state.attack = 1
-    if keys[pygame.K_k]:
+    elif keys[pygame.K_k]:
         action_state.defend = 1
 
     if keys[pygame.K_LSHIFT] and action_state.is_moving:
         action_state.dash = 1
-    elif keys[pygame.K_LSHIFT] and keys[pygame.K_SPACE]:
+    elif keys[pygame.K_l]:
         action_state.jump_down = 1
     elif keys[pygame.K_SPACE]:
         action_state.jump_up = 1
