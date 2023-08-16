@@ -102,6 +102,8 @@ class Player(Sprite):
                 if not self.jump.is_jumping:
                     self.jump.start(player_rect=self.rect)
                     self.motion.on_ground = False
+            elif is_new_only(old=self.action, new=actions, attr="jump_down"):
+                ...
 
         if not self.animations.is_performing:
             if is_new_only(old=self.action, new=actions, attr="attack"):

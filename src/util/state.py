@@ -35,7 +35,7 @@ class ActionState:
         categories = {
             "Movement": ["LEFT", "RIGHT"],
             "Action": ["ATTACK", "DEFEND"],
-            "Special": ["DASH", "JUMP UP"],
+            "Special": ["DASH", "JUMP UP", "JUMP DOWN"],
         }
         text_logger.preload_dict(categories=categories)
 
@@ -64,6 +64,6 @@ class ActionState:
 
         text_logger.decide(
             category="Special",
-            values=["JUMP UP", "DASH"],
-            conditions=[self.jump_up, self.dash],
+            values=["JUMP UP", "DASH", "JUMP DOWN"],
+            conditions=[self.jump_up, self.dash, self.jump_down],
         )
