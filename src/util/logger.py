@@ -59,7 +59,11 @@ class TextLogger:
         y = self.y + (self.nline * row)
 
         if value is not None:
-            font_surface = self.preloaded[value]
+            try:
+                font_surface = self.preloaded[value]
+            except KeyError as e:
+                print(f"{e}\nText surface has not been preloaded.")
+
             self.to_display.append(((x, y), font_surface))
         else:
             self.to_display.append(((x, y), None))
