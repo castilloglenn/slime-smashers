@@ -15,7 +15,7 @@ from src.util.input import (
     remove_controller,
 )
 from src.util.logger import TextLogger
-from src.util.state import ActionState
+from src.util.state import ActionState, ActionStateRandomizer
 
 FLAGS = flags.FLAGS
 
@@ -120,6 +120,9 @@ class TestEnvironment:
         p1_collisions = Group(platforms, player_2)
         p2_collisions = Group(platforms, player_1)
 
+        """Randomizer"""
+        random_actions = ActionStateRandomizer()
+
         """GAME LOOP"""
         while self.running:
             delta = self.clock.tick(FLAGS.game.clock.fps) / 1000
@@ -148,7 +151,10 @@ class TestEnvironment:
                 )
                 player_1.receive_actions(actions=controller_actions)
             else:
-                controller_actions = ActionState(source="Joystick (Disconnected)")
+                controller_actions = random_actions.get_random_actions(
+                    player=player_2, computer=player_1
+                )
+                player_1.receive_actions(actions=controller_actions)
 
             keyboard_actions = map_keyboard_action()
             player_2.receive_actions(actions=keyboard_actions)

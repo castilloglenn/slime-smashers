@@ -91,11 +91,19 @@ class ActionStateRandomizer:
         self.special_cooldown = 1
         self.special_counter = 0
 
-    def set_random_direction(self):
+    def set_random_direction(self, player: Player_, computer: Player_):
         if self.movement_direction is not None:
             return None
 
-        self.movement_direction = random.choice([0, 1, 2])
+        left_bias = right_bias = 0
+        if computer.rect.x > player.rect.x:
+            left_bias = 1
+        elif computer.rect.x < player.rect.x:
+            right_bias = 1
+
+        self.movement_direction = random.choices(
+            population=[0, 1, 2], weights=[1 + left_bias, 1 + right_bias, 1]
+        )[0]
 
         lower = random.uniform(0.2, 0.5)
         upper = random.uniform(0.6, 2.4)
@@ -123,42 +131,44 @@ class ActionStateRandomizer:
             self.action_counter += 1
             return None
 
-        action = random.choices(population=[0, 1], weights=[3, 1])[0]
-        if action == 1:
+        action = random.choices(population=[0, 1], weights=[1, 1])[0]
+        if action == 0:
             actions.attack = 1
-        elif action == 2:
-            actions.defend = 1
 
-        self.action_cooldown = random.uniform(0.3, 1.5)
+        self.action_cooldown = random.uniform(0.3, 0.5)
         self.action_counter = 0
 
-    def special(self, actions: ActionState):
+    def special(self, actions: ActionState, player: Player_, computer: Player_):
         if self.special_counter / self.fps < self.special_cooldown:
             self.special_counter += 1
             return None
 
-        special = random.choices(population=[0, 1, 2], weights=[5, 10, 3])[0]
+        jump_bias = 0
+        if computer.rect.y > player.rect.y:
+            jump_bias = 3
+
+        special = random.choices(population=[0, 1, 2], weights=[3 + jump_bias, 2, 1])[0]
         if special == 1:
             actions.jump_up = 1
         elif special == 2:
             actions.dash = 1
-            dash_direction = random.choice([True, False])
-            if dash_direction:
-                actions.move_right = 1
-            else:
+
+            if computer.rect.x > player.rect.x:
                 actions.move_left = 1
+            else:
+                actions.move_right = 1
         elif special == 3:
             actions.jump_down = 1
 
-        self.special_cooldown = random.uniform(0.9, 1.9)
+        self.special_cooldown = random.uniform(0.3, 0.5)
         self.special_counter = 0
 
-    def get_random_actions(self, p1: Player_, p2: Player_) -> ActionState:
+    def get_random_actions(self, player: Player_, computer: Player_) -> ActionState:
         new_actions = ActionState(source="Randomized")
 
-        self.set_random_direction()
+        self.set_random_direction(player=player, computer=computer)
         self.move(actions=new_actions)
         self.action(actions=new_actions)
-        self.special(actions=new_actions)
+        self.special(actions=new_actions, player=player, computer=computer)
 
         return new_actions
