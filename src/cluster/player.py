@@ -18,6 +18,7 @@ from src.util.math import (
     add_vector_to_rect,
     contain_rect_in_window,
     get_collided,
+    get_collided_below,
     place_rect_on_top,
 )
 from src.util.state import ActionState
@@ -172,7 +173,7 @@ class Player(Sprite):
         descend = self.motion.get_descend(delta=delta)
         add_vector_to_rect(rect=self.rect, vector=descend)
 
-        if collision := get_collided(rect=self.rect, collisions=collisions):
+        if collision := get_collided_below(rect=self.rect, collisions=collisions):
             place_rect_on_top(top=self.rect, bottom=collision.rect)
             self.animations.update_idle(new="idle")
             self.motion.on_ground = True

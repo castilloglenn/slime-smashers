@@ -55,8 +55,18 @@ def get_rect_offset(inside: Rect, enclosure: Rect) -> Vector2:
     return Vector2(inside.x - enclosure.x, inside.y - enclosure.y)
 
 
-def get_collided(rect: Rect, collisions: list[Sprite]) -> Sprite:
+def get_collided(rect: Rect, collisions: list[Sprite]) -> Optional[Sprite]:
     for collision in collisions:
+        if rect.colliderect(collision.rect):
+            return collision
+    return None
+
+
+def get_collided_below(rect: Rect, collisions: list[Sprite]) -> Optional[Sprite]:
+    for collision in collisions:
+        if rect.bottom < collision.rect.top:
+            continue
+
         if rect.colliderect(collision.rect):
             return collision
     return None
