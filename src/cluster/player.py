@@ -85,6 +85,7 @@ class Player(Sprite):
             values=["TRUE"],
             conditions=[StatusEffect.Invulnerable in self.status_effects],
         )
+        text_logger.add_empty()
 
         self.motion.text_log(text_logger=text_logger)
         self.jump.text_log(text_logger=text_logger)

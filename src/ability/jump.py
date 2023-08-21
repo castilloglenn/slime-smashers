@@ -66,6 +66,8 @@ class JumpSequence:
             ],
         )
 
+        text_logger.add_empty()
+
     def receive_actions(
         self, old: ActionState, new: ActionState, motion: Motion, rect: Rect
     ) -> bool:

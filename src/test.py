@@ -165,12 +165,10 @@ class TestEnvironment:
 
             # text_logger.add_empty()
             # player_1.text_log(text_logger=text_logger)
-            # text_logger.add_empty(num=4)
 
             keyboard_actions.text_log(text_logger=text_logger)
             text_logger.add_empty()
             player_2.text_log(text_logger=text_logger)
-            text_logger.add_empty(num=4)
 
             self.text_log(text_logger=text_logger)
 

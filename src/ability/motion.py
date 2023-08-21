@@ -78,6 +78,8 @@ class Motion:
             ],
         )
 
+        text_logger.add_empty()
+
     def modify_move_lock(self, n: int):
         self.move_lock = n
         self.last_facing = n
