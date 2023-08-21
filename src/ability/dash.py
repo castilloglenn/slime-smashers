@@ -6,8 +6,12 @@ from pygame import Vector2
 from pygame.rect import Rect
 from pygame.sprite import Sprite
 
+from src.ability.motion import Motion
+from src.sprite.sheet import Spritesheet
+from src.util.input import is_new_only
 from src.util.logger import TextLogger
 from src.util.math import add_vector_to_rect, contain_rect_in_window, get_collided
+from src.util.state import ActionState
 from src.util.types import Pixels, StatusEffect
 
 FLAGS = flags.FLAGS
@@ -68,6 +72,28 @@ class DashSequence:
                 self.direction == DashSequence.RIGHT,
             ],
         )
+
+    def receive_actions(
+        self,
+        old: ActionState,
+        new: ActionState,
+        motion: Motion,
+        animations: Spritesheet,
+    ) -> bool:
+        if is_new_only(old=old, new=new, attr="dash"):
+            if not self.is_dashing:
+                animations.update_perf(new="dash")
+                self.start()
+
+                if new.move_right:
+                    self.direction = DashSequence.RIGHT
+                    motion.modify_move_lock(n=Motion.RIGHT)
+                elif new.move_left:
+                    self.direction = DashSequence.LEFT
+                    motion.modify_move_lock(n=Motion.LEFT)
+
+                return True
+        return False
 
     def start(self):
         self.status = DashSequence.ENABLE

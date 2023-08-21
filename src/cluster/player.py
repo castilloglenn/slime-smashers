@@ -117,17 +117,10 @@ class Player(Sprite):
             self.animations.reset_perf()
             self.motion.modify_ms(n=1.0)
 
-        if is_new_only(old=self.action, new=actions, attr="dash"):
-            if not self.dash.is_dashing:
-                self.add_status_effects(self.dash.status_effects)
-                self.animations.update_perf(new="dash")
-                self.dash.start()
-                if actions.move_right:
-                    self.dash.direction = DashSequence.RIGHT
-                    self.motion.modify_move_lock(n=Motion.RIGHT)
-                elif actions.move_left:
-                    self.dash.direction = DashSequence.LEFT
-                    self.motion.modify_move_lock(n=Motion.LEFT)
+        if self.dash.receive_actions(
+            old=self.action, new=actions, motion=self.motion, animations=self.animations
+        ):
+            self.add_status_effects(self.dash.status_effects)
 
         self.action = actions
 
