@@ -121,7 +121,7 @@ class TestEnvironment:
         p2_collisions = Group(platforms, player_1)
 
         """Randomizer"""
-        random_actions = ActionStateRandomizer()
+        # random_actions = ActionStateRandomizer()
 
         """GAME LOOP"""
         while self.running:
