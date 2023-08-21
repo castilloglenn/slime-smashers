@@ -68,15 +68,17 @@ class JumpSequence:
 
     def receive_actions(
         self, old: ActionState, new: ActionState, motion: Motion, rect: Rect
-    ):
+    ) -> bool:
         if not motion.on_ground or self.is_jumping:
-            return None
+            return False
 
         if is_new_only(old=old, new=new, attr="jump_up"):
             self.start(player_rect=rect)
             motion.on_ground = False
         elif is_new_only(old=old, new=new, attr="jump_down"):
             ...
+
+        return True
 
     def start(self, player_rect: Rect):
         self.status = JumpSequence.RISING
