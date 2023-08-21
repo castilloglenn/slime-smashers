@@ -150,6 +150,7 @@ class TestEnvironment:
                     joysticks=joysticks, joy_id=p2_joy_id
                 )
                 player_1.receive_actions(actions=controller_actions)
+                controller_actions.text_log(text_logger=text_logger)
             # else:
             #     controller_actions = random_actions.get_random_actions(
             #         player=player_2, computer=player_1
@@ -162,10 +163,9 @@ class TestEnvironment:
             player_1.update(delta=delta, collisions=p1_collisions)
             player_2.update(delta=delta, collisions=p2_collisions)
 
-            controller_actions.text_log(text_logger=text_logger)
-            text_logger.add_empty()
-            player_1.text_log(text_logger=text_logger)
-            text_logger.add_empty(num=4)
+            # text_logger.add_empty()
+            # player_1.text_log(text_logger=text_logger)
+            # text_logger.add_empty(num=4)
 
             keyboard_actions.text_log(text_logger=text_logger)
             text_logger.add_empty()
