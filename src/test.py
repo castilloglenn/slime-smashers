@@ -150,11 +150,11 @@ class TestEnvironment:
                     joysticks=joysticks, joy_id=p2_joy_id
                 )
                 player_1.receive_actions(actions=controller_actions)
-            else:
-                controller_actions = random_actions.get_random_actions(
-                    player=player_2, computer=player_1
-                )
-                player_1.receive_actions(actions=controller_actions)
+            # else:
+            #     controller_actions = random_actions.get_random_actions(
+            #         player=player_2, computer=player_1
+            #     )
+            #     player_1.receive_actions(actions=controller_actions)
 
             keyboard_actions = map_keyboard_action()
             player_2.receive_actions(actions=keyboard_actions)
