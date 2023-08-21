@@ -11,7 +11,6 @@ from src.ability.jump import JumpSequence
 from src.ability.motion import Motion
 from src.sprite.bound import Bound, HitboxRelPos, WindowRelPos
 from src.sprite.sheet import Spritesheet
-from src.util.basic import append_list, remove_list
 from src.util.input import is_new_only, is_old_only
 from src.util.logger import TextLogger
 from src.util.math import (
@@ -92,10 +91,13 @@ class Player(Sprite):
         self.dash.text_log(text_logger=text_logger)
 
     def add_status_effects(self, status_effects: list[StatusEffect]):
-        append_list(orig=self.status_effects, to_add=status_effects)
+        for status in status_effects:
+            self.status_effects.add(status)
 
     def del_status_effects(self, status_effects: list[StatusEffect]):
-        remove_list(orig=self.status_effects, to_del=status_effects)
+        for status in status_effects:
+            if status in self.status_effects:
+                self.status_effects.remove(status)
 
     def receive_actions(self, actions: ActionState):
         self.jump.receive_actions(
