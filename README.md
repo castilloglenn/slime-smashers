@@ -7,3 +7,6 @@
 
 **August 13, 2023**
 ![image](https://github.com/castilloglenn/untitled_pygame/assets/55197203/7f513b53-171f-4c4f-a5d6-84f5b8a1ea2f)
+
+**September 7, 2023**
+Initial name: Slime Smashers
